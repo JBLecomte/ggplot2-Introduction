@@ -1,0 +1,18 @@
+\frametitle{Getting Started}
+
+  \begin{alertblock}{Data format}
+    Always work with \texttt{data.frame}
+  \end{alertblock}
+    Our data frame:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlkwd{str}\hlstd{(df_data)}
+\end{alltt}
+\begin{verbatim}
+## 'data.frame': 0 obs. of  0 variables
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+

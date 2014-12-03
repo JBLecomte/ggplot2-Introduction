@@ -1,0 +1,152 @@
+\documentclass{beamer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Beamer option
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{itemize item}{fg=red}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{natbib}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hyperlinks
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, urlcolor=blue}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Maths
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathbb{V}ar}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Tables
+\usepackage{floatrow} %centre automatic les figures
+\floatsetup[table]{capposition=top}
+\usepackage{multirow}
+\usepackage[toc,page]{appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Figs
+\usepackage{graphicx}
+\usepackage{caption}
+%\usepackage{subcaption}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Verbatim code
+%\usepackage{alltt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Title page
+\title{ggplot2 Introduction}
+\author{Jean-Baptiste Lecomte}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Start documents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+
+
+\begin{frame}{Introduction}
+  \begin{itemize}
+    \item developped by Hadley Wickham (Rice University, Houston, USA)
+    \item highly recoomaded R packages to work with ggplot2: reshape and plyr (also developped by H. Wickham)
+    \item first version called in 2007
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Useful books}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[scale=0.45]{rgraphicscookbook}
+    \end{column}
+  
+    \begin{column}{0.5\textwidth}
+      \includegraphics[scale=0.45]{ggplot2}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Online ressources}
+    	\begin{itemize}
+      
+      \item R code related to ggplot2 cookbook:\\ \url{http://www.cookbook-r.com/Graphs/}
+      \item R code related to useR! ggplot2 book:\\ \url{http://ggplot2.org/book/}
+  		\item ggplot2 official documentation:\\  \url{http://docs.ggplot2.org/current/}
+			\item Google groups to ask questions:\\ \url{ggplot2@googlegroups.com}
+      \item Github repository:\\ \url{https://github.com/yhat/ggplot/}
+			\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Introduction}
+  \begin{itemize}
+    \item based on new aesthetic principles
+    \item based on \textit{The grammar of graphics} developed by Wilkinson in 2005
+    \item efficient way to produce simple graphics with a length reduction of R code
+  \end{itemize}
+  
+  \begin{alertblock}{Forget about R base graphics:}
+     \texttt{ plot(), hist(), par(), layout(), points(), lines(),legend()}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Principle}
+ggplot2 is based on a \textbf{layer} system which can be used as objects.\\
+\vspace{1cm}
+Main layers
+  \begin{itemize}
+    \item data $\rightarrow$ raw data
+    \item mapping $\rightarrow$ graphic projection
+    \item geom $\rightarrow$ geometric objects (points, lines, polygons, ...)
+    \item stat $\rightarrow$ statistics transformation (histogram, model)
+    \item scale $\rightarrow$ aesthetics customization (color, shape, size, axes, legend)
+    \item coord $\rightarrow$ coordinate system (axes, grid)
+    \item facet $\rightarrow$ subdivision (lattice, trellis)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Base functions}
+ggplot2 is based on two functions:
+  \begin{enumerate}
+		\item  \texttt{qplot()} for \textbf{q}uick \textbf{plot}
+		\begin{itemize}
+			\item easy and fast, but too simple in most cases
+			\item \texttt{qplot(x, y, data=data)}
+		\end{itemize}
+    \vspace{0.5cm}
+    \item \texttt{ggplot()}
+      	\begin{itemize}
+			\item more complex but more powerful and flexible by adding \texttt{layers}
+			\item \texttt{ggplot(data=data, aes(x, y)) + layers}
+		\end{itemize}
+  \end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]{Getting Started}
+
+  \begin{alertblock}{Data format}
+    Always work with \texttt{data.frame}
+  \end{alertblock}
+    Our data frame:
+    
+    <<R data2>>=
+      str(df_data)
+      @
+    
+\end{frame}
+\end{document}

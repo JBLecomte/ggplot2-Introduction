@@ -3,7 +3,7 @@
 ##########################################################
 
 #### Load required package, and install it if not
-list.of.packages <- c('ggplot2',
+list.of.packages <- c('ggplot2', 'RColorBrewer',
                       'plyr', 'reshape2', 'dplyr',
                       'scales', 'gridExtra',
                       'maps','mapdata',

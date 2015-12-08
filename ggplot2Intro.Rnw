@@ -59,11 +59,14 @@
 
 
 \maketitle
-
-
-    <<setup option, echo=FALSE>>=
-    opts_chunk$set(fig.path='')
-    @
+<<setup, include=FALSE>>=
+library(knitr)
+opts_chunk$set(fig.path='', fig.align='center', fig.show='hold', size='footnotesize', out.width='.9\\linewidth')
+opts_template$set(
+  fig.large = list(fig.width = 8, fig.height = 5),
+  fig.medium = list(fig.width = 8, fig.height = 4.5)
+)
+@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Introduction
@@ -149,10 +152,13 @@ ggplot2 is based on two functions:
   \begin{alertblock}{Data format}
     Always work with a \texttt{data.frame}
   \end{alertblock}
-    Our data frame:
-    
-    <<R data>>=
-      head(df_data)
+    Our data frame is based on the surveys XXXX and simulated data.
+
+\end{frame}
+
+\begin{frame}[fragile]{Getting Started}
+    <<str data, size = "scriptsize">>=
+      str(df_data)
       @
 \end{frame}
 
@@ -161,16 +167,11 @@ ggplot2 is based on two functions:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[fragile]{Scatter plot: Depth and Biomass}
-     <<boring-plot, eval=TRUE, dev='pdf'>>=
-       scatter.plot <- ggplot(data=df_data, aes(x=Avg_net_depth,
-                                                y=Biomass)) +
+     <<scatter_plot_base, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+       scatter.plot <- ggplot(data=df_data, aes(x=Avg_net_depth, y=Biomass)) +
                      geom_point()
        print(scatter.plot)
        @
-       
-%<<boring-plots, dev=pdf, fig.width=5, fig.height=5, eval=FALSE, literal=TRUE>>=
-%       scatter_plot
-%       @
 \end{frame}
 
 \end{document}

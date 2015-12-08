@@ -6,7 +6,7 @@ rm(list = ls())
 ## Source useful package and functions
 source('R/Fun/Boot.R')
 
-display.brewer.all()
+#display.brewer.all()
 
 ## Simulation of a data.frame
 source('R/Data_Simulation/Data_Simulation_Year.R')

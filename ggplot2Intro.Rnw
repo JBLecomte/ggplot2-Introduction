@@ -41,7 +41,7 @@
 \usepackage{graphicx}
 \usepackage{caption}
 %\usepackage{subcaption}
-
+\graphicspath{{./figure/}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Verbatim code
 %\usepackage{alltt}
@@ -56,19 +56,27 @@
 %% Start documents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+
+
 \maketitle
 
 
+    <<setup option, echo=FALSE>>=
+    opts_chunk$set(fig.path='')
+    @
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Introduction}
   \begin{itemize}
     \item developped by Hadley Wickham (Rice University, Houston, USA)
-    \item highly recoomaded R packages to work with ggplot2: reshape and plyr (also developped by H. Wickham)
+    \item highly recommanded R packages to work with ggplot2: reshape and plyr (also developped by H. Wickham)
     \item first version called in 2007
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Useful books}
-
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \includegraphics[scale=0.45]{rgraphicscookbook}
@@ -82,12 +90,11 @@
 
 \begin{frame}{Online ressources}
     	\begin{itemize}
-      
-      \item R code related to ggplot2 cookbook:\\ \url{http://www.cookbook-r.com/Graphs/}
-      \item R code related to useR! ggplot2 book:\\ \url{http://ggplot2.org/book/}
-  		\item ggplot2 official documentation:\\  \url{http://docs.ggplot2.org/current/}
-			\item Google groups to ask questions:\\ \url{ggplot2@googlegroups.com}
-      \item Github repository:\\ \url{https://github.com/yhat/ggplot/}
+        \item R code related to ggplot2 cookbook:\\ \url{http://www.cookbook-r.com/Graphs/}
+        \item R code related to useR! ggplot2 book:\\ \url{http://ggplot2.org/book/}
+  		  \item ggplot2 official documentation:\\  \url{http://docs.ggplot2.org/current/}
+			  \item Google groups to ask questions:\\ \url{ggplot2@googlegroups.com}
+        \item Github repository:\\ \url{https://github.com/yhat/ggplot/}
 			\end{itemize}
 \end{frame}
 
@@ -140,13 +147,30 @@ ggplot2 is based on two functions:
 \begin{frame}[fragile]{Getting Started}
 
   \begin{alertblock}{Data format}
-    Always work with \texttt{data.frame}
+    Always work with a \texttt{data.frame}
   \end{alertblock}
     Our data frame:
     
-    <<R data2>>=
-      str(df_data)
+    <<R data>>=
+      head(df_data)
       @
-    
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Scatter plot: Depth and Biomass}
+     <<boring-plot, eval=TRUE, dev='pdf'>>=
+       scatter.plot <- ggplot(data=df_data, aes(x=Avg_net_depth,
+                                                y=Biomass)) +
+                     geom_point()
+       print(scatter.plot)
+       @
+       
+%<<boring-plots, dev=pdf, fig.width=5, fig.height=5, eval=FALSE, literal=TRUE>>=
+%       scatter_plot
+%       @
+\end{frame}
+
 \end{document}

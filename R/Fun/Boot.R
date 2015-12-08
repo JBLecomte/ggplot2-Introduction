@@ -3,11 +3,11 @@
 ##########################################################
 
 #### Load required package, and install it if not
-list.of.packages <- c('ggplot2', 'RColorBrewer',
+list.of.packages <- c('ggplot2', 'RColorBrewer', 'grid',
                       'plyr', 'reshape2', 'dplyr',
                       'scales', 'gridExtra',
                       'maps','mapdata',
-                      'knitr')
+                      'knitr', 'knitLiteral')
 
 
 # new.packages <- list.of.packages[!(list.of.packages %in%

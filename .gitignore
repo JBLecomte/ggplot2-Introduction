@@ -1,2 +1,8 @@
 packrat/lib*/
 .Rproj.user
+.vrb
+.aux
+.out
+.gz
+.nav
+.toc

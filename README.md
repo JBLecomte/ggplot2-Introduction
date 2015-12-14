@@ -34,12 +34,7 @@ Introduction to ggplot2 by examples. The different types of plots are called by 
 - Write R scripts for simple ggplots
 - Write ggplots theme with example
 - Write R script to produce map of species distribution
-
-
-**Ideas**
-
-- Simulation of a data.frame to play with
-
+- R script for plotting ggplot side by side
 
 **Potential tasks**
 

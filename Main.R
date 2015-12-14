@@ -6,8 +6,6 @@ rm(list = ls())
 ## Source useful package and functions
 source('R/Fun/Boot.R')
 
-#display.brewer.all()
-
 ## Simulation of a data.frame
 source('R/Data_Simulation/Data_Simulation_Year.R')
 
@@ -15,5 +13,5 @@ source('R/Data_Simulation/Data_Simulation_Year.R')
 source('R/Scatter_PLots/ScatterPlot_Simple.R')
 
 ## Compile Rnw to tex
-knit('ggplot2Intro.Rnw', 'ggplot2Intro.tex')
+knit('ggplot2Intro.Rnw', 'ggplot2Intro.tex', quiet=TRUE)
 texi2pdf('ggplot2Intro.tex', clean=TRUE)

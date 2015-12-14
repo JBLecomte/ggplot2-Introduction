@@ -9,7 +9,7 @@
 \setbeamertemplate{itemize item}[triangle]
 \setbeamercolor{itemize item}{fg=red}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\setbeamertemplate{footline}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{lmodern}
 \usepackage[english]{babel}
@@ -61,7 +61,7 @@
 \maketitle
 <<setup, include=FALSE>>=
 library(knitr)
-opts_chunk$set(fig.path='', fig.align='center', fig.show='hold', size='footnotesize', out.width='.9\\linewidth')
+opts_chunk$set(fig.path='figure/', fig.align='center', fig.show='hold', size='footnotesize', out.width='.9\\linewidth')
 opts_template$set(
   fig.large = list(fig.width = 8, fig.height = 5),
   fig.medium = list(fig.width = 8, fig.height = 4.5)
@@ -93,10 +93,10 @@ opts_template$set(
 
 \begin{frame}{Online ressources}
     	\begin{itemize}
+    	  \item ggplot2 official documentation:\\  \url{http://docs.ggplot2.org/current/}
         \item R code related to ggplot2 cookbook:\\ \url{http://www.cookbook-r.com/Graphs/}
         \item R code related to useR! ggplot2 book:\\ \url{http://ggplot2.org/book/}
-  		  \item ggplot2 official documentation:\\  \url{http://docs.ggplot2.org/current/}
-			  \item Google groups to ask questions:\\ \url{ggplot2@googlegroups.com}
+  		  \item Google groups to ask questions:\\ \url{ggplot2@googlegroups.com}
         \item Github repository:\\ \url{https://github.com/yhat/ggplot/}
 			\end{itemize}
 \end{frame}
@@ -153,7 +153,7 @@ ggplot2 is based on two functions:
     Always work with a \texttt{data.frame}
   \end{alertblock}
     Our data frame is based on the surveys XXXX and simulated data.
-
+    Github repository:\\ \url{https://github.com/JBLecomte/ggplot2-Introduction.git}
 \end{frame}
 
 \begin{frame}[fragile]{Getting Started}
@@ -168,9 +168,82 @@ ggplot2 is based on two functions:
 
 \begin{frame}[fragile]{Scatter plot: Depth and Biomass}
      <<scatter_plot_base, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-       scatter.plot <- ggplot(data=df_data, aes(x=Avg_net_depth, y=Biomass)) +
+       scatter_plot <- ggplot(data=df_data, aes(x=Avg_net_depth, y=Biomass)) +
                      geom_point()
-       print(scatter.plot)
+       print(scatter_plot)
+       @
+\end{frame}
+
+\begin{frame}[fragile]{Scatter plot with color: Depth and Biomass}
+     <<scatter_plot_color, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+       scatter_plot_color <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                              color=AREA)) +
+       geom_point()
+       print(scatter_plot_color)
+       @
+\end{frame}
+
+
+\begin{frame}[fragile]{Scatter plot with shape: Depth and Biomass}
+     <<scatter_plot_shape, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+       scatter_plot_shape <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                              color=AREA, shape=Year_fac)) +
+       geom_point()
+       print(scatter_plot_shape)
+       @
+\end{frame}
+
+\begin{frame}[fragile]{Scatter plot with continuous color: Depth and Biomass}
+     <<scatter_plot_color_cont, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+       scatter_plot_color_cont <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                              color=Avg_net_temp)) +
+       geom_point()
+       print(scatter_plot_color_cont)
+       @
+\end{frame}
+
+
+\begin{frame}[fragile]{Scatter plot with size: Depth and Biomass}
+     <<scatter_plot_color_size, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+       scatter_plot_area <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                              size=Avg_net_temp)) +
+       geom_point()
+       print(scatter_plot_area)
+       @
+\end{frame}
+
+\begin{frame}[fragile]{Improvement of a plot}
+     <<scatter_plot_shape2, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+       print(scatter_plot_shape)
+       @
+\end{frame}
+
+\begin{frame}[fragile]{Improvement of a plot: axes names}
+     <<scatter_plot_shape_imp1, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+       scatter_plot_shape_imp1 <- scatter_plot_shape + 
+       xlab('Average net depth (in m)') + ylab('Biomass (in kg)')
+
+       print(scatter_plot_shape_imp1)
+       @
+\end{frame}
+
+\begin{frame}[fragile]{Improvement of a plot: legend titles}
+     <<scatter_plot_shape_imp2, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+       scatter_plot_shape_imp2 <- scatter_plot_shape_imp1 + 
+       scale_shape_discrete(name="Years") +
+       scale_color_discrete(name="Area")
+
+       print(scatter_plot_shape_imp2)
+       @
+\end{frame}
+
+
+\begin{frame}[fragile]{Improvement of a plot: plot title}
+     <<scatter_plot_shape_imp3, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+       scatter_plot_shape_imp3 <- scatter_plot_shape_imp2 + 
+        ggtitle("Biomass of species X and average net depth")
+
+       print(scatter_plot_shape_imp3)
        @
 \end{frame}
 

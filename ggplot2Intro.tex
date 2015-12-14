@@ -58,7 +58,7 @@
 \setbeamertemplate{itemize item}[triangle]
 \setbeamercolor{itemize item}{fg=red}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\setbeamertemplate{footline}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{lmodern}
 \usepackage[english]{babel}
@@ -136,10 +136,10 @@
 
 \begin{frame}{Online ressources}
     	\begin{itemize}
+    	  \item ggplot2 official documentation:\\  \url{http://docs.ggplot2.org/current/}
         \item R code related to ggplot2 cookbook:\\ \url{http://www.cookbook-r.com/Graphs/}
         \item R code related to useR! ggplot2 book:\\ \url{http://ggplot2.org/book/}
-  		  \item ggplot2 official documentation:\\  \url{http://docs.ggplot2.org/current/}
-			  \item Google groups to ask questions:\\ \url{ggplot2@googlegroups.com}
+  		  \item Google groups to ask questions:\\ \url{ggplot2@googlegroups.com}
         \item Github repository:\\ \url{https://github.com/yhat/ggplot/}
 			\end{itemize}
 \end{frame}
@@ -196,7 +196,7 @@ ggplot2 is based on two functions:
     Always work with a \texttt{data.frame}
   \end{alertblock}
     Our data frame is based on the surveys XXXX and simulated data.
-
+    Github repository:\\ \url{https://github.com/JBLecomte/ggplot2-Introduction.git}
 \end{frame}
 
 \begin{frame}[fragile]{Getting Started}
@@ -223,8 +223,8 @@ ggplot2 is based on two functions:
 ##  $ Pres            : num  1 1 1 1 1 1 1 0 0 1 ...
 ##  $ Year_fac        : Factor w/ 5 levels "2005","2007",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ AREA_num        : num  1 1 1 1 1 1 1 1 1 1 ...
-##  $ nFish           : int  4 6 3 5 3 2 1 1 4 3 ...
-##  $ Biomass         : num  10.2 14.35 7.26 12.58 7.43 ...
+##  $ nFish           : int  3 2 1 2 4 2 0 1 2 5 ...
+##  $ Biomass         : num  7.69 5.25 2.45 4.61 10.7 ...
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -238,13 +238,174 @@ ggplot2 is based on two functions:
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-  \hlstd{scatter.plot} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=df_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Avg_net_depth,} \hlkwc{y}\hlstd{=Biomass))} \hlopt{+}
+  \hlstd{scatter_plot} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=df_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Avg_net_depth,} \hlkwc{y}\hlstd{=Biomass))} \hlopt{+}
                 \hlkwd{geom_point}\hlstd{()}
-  \hlkwd{print}\hlstd{(scatter.plot)}
+  \hlkwd{print}\hlstd{(scatter_plot)}
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=.9\linewidth]{scatter_plot_base-1} 
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_base-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+\begin{frame}[fragile]{Scatter plot with color: Depth and Biomass}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{scatter_plot_color} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(df_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Avg_net_depth,} \hlkwc{y}\hlstd{=Biomass,}
+                                         \hlkwc{color}\hlstd{=AREA))} \hlopt{+}
+  \hlkwd{geom_point}\hlstd{()}
+  \hlkwd{print}\hlstd{(scatter_plot_color)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_color-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+
+\begin{frame}[fragile]{Scatter plot with shape: Depth and Biomass}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{scatter_plot_shape} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(df_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Avg_net_depth,} \hlkwc{y}\hlstd{=Biomass,}
+                                         \hlkwc{color}\hlstd{=AREA,} \hlkwc{shape}\hlstd{=Year_fac))} \hlopt{+}
+  \hlkwd{geom_point}\hlstd{()}
+  \hlkwd{print}\hlstd{(scatter_plot_shape)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_shape-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+\begin{frame}[fragile]{Scatter plot with continuous color: Depth and Biomass}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{scatter_plot_color_cont} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(df_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Avg_net_depth,} \hlkwc{y}\hlstd{=Biomass,}
+                                         \hlkwc{color}\hlstd{=Avg_net_temp))} \hlopt{+}
+  \hlkwd{geom_point}\hlstd{()}
+  \hlkwd{print}\hlstd{(scatter_plot_color_cont)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_color_cont-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+
+\begin{frame}[fragile]{Scatter plot with size: Depth and Biomass}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{scatter_plot_area} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(df_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Avg_net_depth,} \hlkwc{y}\hlstd{=Biomass,}
+                                         \hlkwc{size}\hlstd{=Avg_net_temp))} \hlopt{+}
+  \hlkwd{geom_point}\hlstd{()}
+  \hlkwd{print}\hlstd{(scatter_plot_area)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_color_size-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+\begin{frame}[fragile]{Improvement of a plot}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlkwd{print}\hlstd{(scatter_plot_shape)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_shape2-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+\begin{frame}[fragile]{Improvement of a plot: axes names}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{scatter_plot_shape_imp1} \hlkwb{<-} \hlstd{scatter_plot_shape} \hlopt{+}
+  \hlkwd{xlab}\hlstd{(}\hlstr{'Average net depth (in m)'}\hlstd{)} \hlopt{+} \hlkwd{ylab}\hlstd{(}\hlstr{'Biomass (in kg)'}\hlstd{)}
+
+  \hlkwd{print}\hlstd{(scatter_plot_shape_imp1)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_shape_imp1-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+\begin{frame}[fragile]{Improvement of a plot: legend titles}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{scatter_plot_shape_imp2} \hlkwb{<-} \hlstd{scatter_plot_shape_imp1} \hlopt{+}
+  \hlkwd{scale_shape_discrete}\hlstd{(}\hlkwc{name}\hlstd{=}\hlstr{"Years"}\hlstd{)} \hlopt{+}
+  \hlkwd{scale_color_discrete}\hlstd{(}\hlkwc{name}\hlstd{=}\hlstr{"Area"}\hlstd{)}
+
+  \hlkwd{print}\hlstd{(scatter_plot_shape_imp2)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_shape_imp2-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+
+\begin{frame}[fragile]{Improvement of a plot: plot title}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+  \hlstd{scatter_plot_shape_imp3} \hlkwb{<-} \hlstd{scatter_plot_shape_imp2} \hlopt{+}
+   \hlkwd{ggtitle}\hlstd{(}\hlstr{"Biomass of species X and average net depth"}\hlstd{)}
+
+  \hlkwd{print}\hlstd{(scatter_plot_shape_imp3)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_shape_imp3-1} 
 
 }
 

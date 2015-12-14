@@ -7,3 +7,5 @@ packrat/lib*/
 *.nav
 *.toc
 *.snm
+*.log
+*.pdf

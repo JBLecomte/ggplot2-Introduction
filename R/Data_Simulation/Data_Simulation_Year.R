@@ -7,10 +7,10 @@ load('Data/df_data_survey.RData')
 df_data$AREA_num <- as.numeric(df_data$AREA)
 
 ## Number of years 
-nYear <- length(levels(df_data$Year_fac))
+nYear <- length(levels(df_data$YeaB_fac))
 
 ## number of observation per year
-nObs_t <- table(df_data$Year_fac)
+nObs_t <- table(df_data$YeaB_fac)
 
 ## Simulation of a number of fish with a depth effect, Temperature, and Area
 Depth_effect <- -0.5
@@ -35,3 +35,17 @@ for ( i in 1:length(nFish)){
 
 df_data$nFish <- nFish
 df_data$Biomass <- Biomass
+
+## Create a data.frame which summarize the df_data by Year
+df_data_summary <- ddply(df_data, c("Year"), summarise,
+                                  B_mean=mean(Biomass),
+                                  B_median=median(Biomass),
+                                  B_sd=sd(Biomass),
+                                  B_q025=quantile(Biomass, probs = 0.025),
+                                  B_q05=quantile(Biomass, probs = 0.05),
+                                  B_q10=quantile(Biomass, probs = 0.10),
+                                  B_q50=quantile(Biomass, probs = 0.50),
+                                  B_q90=quantile(Biomass, probs = 0.90),
+                                  B_q95=quantile(Biomass, probs = 0.95),
+                                  B_q975=quantile(Biomass, probs = 0.975))
+

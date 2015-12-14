@@ -1,6 +1,7 @@
 ################################################################################
 ### Creating a Scatter plot
 ################################################################################
+### the data.frame used in this script is df_data
 
 ### Simple scatter plot
 scatter_plot <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass)) +

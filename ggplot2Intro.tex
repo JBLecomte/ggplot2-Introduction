@@ -223,8 +223,8 @@ ggplot2 is based on two functions:
 ##  $ Pres            : num  1 1 1 1 1 1 1 0 0 1 ...
 ##  $ Year_fac        : Factor w/ 5 levels "2005","2007",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ AREA_num        : num  1 1 1 1 1 1 1 1 1 1 ...
-##  $ nFish           : int  5 1 3 2 2 0 4 0 2 3 ...
-##  $ Biomass         : num  11.8 2.72 7.98 4.51 5.2 ...
+##  $ nFish           : int  3 4 1 0 3 2 1 2 1 4 ...
+##  $ Biomass         : num  7.17 9.77 2.15 0 7.28 ...
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -406,6 +406,158 @@ ggplot2 is based on two functions:
 \end{kframe}
 
 {\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_shape_imp3-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+\begin{frame}[fragile]{A quick overview of the ggplot2 types}
+\begin{itemize}
+% 			\item Points, as for a scatterplot \texttt{geom_point()}
+        \item %Lines \texttt{geom_line()}
+% 			\item Histogram \texttt{geom_bar()}
+% 			\item Boxplot \texttt{geom_boxplot()}
+% 			\item Polygon \texttt{geom_polygon}
+% 			\item Draw rectangles \texttt{geom_raster}
+% 			\item Smooth density estimate \texttt{geom_density}
+% 			\item Map \texttt{ggmap()}
+		\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Time series}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+ \hlstd{scatter_TSplot} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=df_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Date,} \hlkwc{y}\hlstd{=Biomass))} \hlopt{+}
+               \hlkwd{geom_point}\hlstd{()}
+ \hlkwd{print}\hlstd{(scatter_TSplot)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_TSplot-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+
+\begin{frame}[fragile]{Time series}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+ \hlstd{scatter_TSplot_year} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=df_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Year,} \hlkwc{y}\hlstd{=Biomass))} \hlopt{+}
+                     \hlkwd{geom_point}\hlstd{()}
+ \hlkwd{print}\hlstd{(scatter_TSplot_year)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_TSplot_year-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+
+\begin{frame}[fragile]{Time series with error bars}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+   \hlstd{scatter_TSplot_i95} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=df_data_summary,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Year,} \hlkwc{y}\hlstd{=B_mean))} \hlopt{+}
+               \hlkwd{geom_point}\hlstd{()} \hlopt{+}
+               \hlkwd{geom_pointrange}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{ymin} \hlstd{= B_q025,} \hlkwc{ymax} \hlstd{= B_q975))}
+   \hlkwd{print}\hlstd{(scatter_TSplot_i95)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_TSplot_i95-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+
+\begin{frame}[fragile]{Time series with error bars}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+   \hlstd{scatter_TSplot_errori95} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=df_data_summary,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Year,} \hlkwc{y}\hlstd{=B_mean))} \hlopt{+}
+               \hlkwd{geom_line}\hlstd{()} \hlopt{+}
+               \hlkwd{geom_errorbar}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{ymin} \hlstd{= B_q025,} \hlkwc{ymax} \hlstd{= B_q975),} \hlkwc{width} \hlstd{=} \hlnum{0.2}\hlstd{)}
+   \hlkwd{print}\hlstd{(scatter_TSplot_errori95)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/scatter_plot_TSplot_errori95-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+\begin{frame}[fragile]{Boxplot}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+    \hlstd{boxplot_TS} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=df_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Year,} \hlkwc{y}\hlstd{=Biomass))} \hlopt{+}
+ \hlkwd{geom_boxplot}\hlstd{()}
+    \hlkwd{print}\hlstd{(scatter_TSplot_i95)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/boxplot_TS-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+
+\begin{frame}[fragile]{Boxplot with Year as a factor}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+ \hlstd{boxplot_TSf} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=df_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=}\hlkwd{factor}\hlstd{(Year),} \hlkwc{y}\hlstd{=Biomass))} \hlopt{+}
+   \hlkwd{geom_boxplot}\hlstd{()}
+ \hlkwd{print}\hlstd{(boxplot_TSf)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/boxplot_TSf-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+\begin{frame}[fragile]{Boxplot with Year as a factor}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+ \hlstd{boxplot_TS_AREA} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=df_data,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=}\hlkwd{factor}\hlstd{(Year),} \hlkwc{y}\hlstd{=Biomass,} \hlkwc{colour}\hlstd{=AREA))} \hlopt{+}
+   \hlkwd{geom_boxplot}\hlstd{()}
+ \hlkwd{print}\hlstd{(boxplot_TS_AREA)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.9\linewidth]{figure/boxplot_TSf_AREA-1} 
 
 }
 

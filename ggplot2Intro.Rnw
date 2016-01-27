@@ -247,4 +247,79 @@ ggplot2 is based on two functions:
        @
 \end{frame}
 
+\begin{frame}[fragile]{A quick overview of the ggplot2 types}
+\begin{itemize}
+% 			\item Points, as for a scatterplot \texttt{geom_point()}
+        \item %Lines \texttt{geom_line()}
+% 			\item Histogram \texttt{geom_bar()}
+% 			\item Boxplot \texttt{geom_boxplot()}
+% 			\item Polygon \texttt{geom_polygon}
+% 			\item Draw rectangles \texttt{geom_raster}
+% 			\item Smooth density estimate \texttt{geom_density}
+% 			\item Map \texttt{ggmap()}
+		\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Time series}
+     <<scatter_plot_TSplot, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+      scatter_TSplot <- ggplot(data=df_data, aes(x=Date, y=Biomass)) + 
+                    geom_point()
+      print(scatter_TSplot)
+       @
+\end{frame}
+
+
+\begin{frame}[fragile]{Time series}
+     <<scatter_plot_TSplot_year, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+      scatter_TSplot_year <- ggplot(data=df_data, aes(x=Year, y=Biomass)) + 
+                          geom_point()
+      print(scatter_TSplot_year)
+       @
+\end{frame}
+
+
+\begin{frame}[fragile]{Time series with error bars}
+     <<scatter_plot_TSplot_i95, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+        scatter_TSplot_i95 <- ggplot(data=df_data_summary, aes(x=Year, y=B_mean)) + 
+                    geom_point() + 
+                    geom_pointrange(aes(ymin = B_q025, ymax = B_q975))
+        print(scatter_TSplot_i95)
+       @
+\end{frame}
+
+
+\begin{frame}[fragile]{Time series with error bars}
+     <<scatter_plot_TSplot_errori95, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+        scatter_TSplot_errori95 <- ggplot(data=df_data_summary, aes(x=Year, y=B_mean)) + 
+                    geom_line() + 
+                    geom_errorbar(aes(ymin = B_q025, ymax = B_q975), width = 0.2)
+        print(scatter_TSplot_errori95)
+       @
+\end{frame}
+
+\begin{frame}[fragile]{Boxplot}
+     <<boxplot_TS, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+    boxplot_TS <- ggplot(data=df_data, aes(x=Year, y=Biomass)) + 
+      geom_boxplot()
+    print(scatter_TSplot_i95)
+       @
+\end{frame}
+
+
+\begin{frame}[fragile]{Boxplot with Year as a factor}
+     <<boxplot_TSf, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+      boxplot_TSf <- ggplot(data=df_data, aes(x=factor(Year), y=Biomass)) + 
+        geom_boxplot() 
+      print(boxplot_TSf)
+       @
+\end{frame}
+
+\begin{frame}[fragile]{Boxplot with Year as a factor}
+     <<boxplot_TSf_AREA, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+      boxplot_TS_AREA <- ggplot(data=df_data, aes(x=factor(Year), y=Biomass, colour=AREA)) +
+        geom_boxplot()
+      print(boxplot_TS_AREA)
+       @
+\end{frame}
+
 \end{document}

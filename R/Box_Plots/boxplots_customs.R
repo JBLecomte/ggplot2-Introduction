@@ -24,7 +24,7 @@ min_mean_sd_max <- function(x) {
 q05_q25_q50_q75_q95 <- function(x) {
   r <- quantile(x, probs = c(0.05, 0.25, 0.5, 0.75, 0.95))
   names(r) <- c("ymin", "lower", "middle", "upper", "ymax")
-  r
+  return(r)
 }
 
 # ggplot code

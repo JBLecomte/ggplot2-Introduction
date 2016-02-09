@@ -316,7 +316,8 @@ ggplot2 is based on two functions:
 
 \begin{frame}[fragile]{Boxplot with Year as a factor}
      <<boxplot_TSf_AREA, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-      boxplot_TS_AREA <- ggplot(data=df_data, aes(x=factor(Year), y=Biomass, colour=AREA)) +
+      boxplot_TS_AREA <- ggplot(data=df_data, aes(x=factor(Year), y=Biomass, 
+                                                  colour=AREA)) +
         geom_boxplot()
       print(boxplot_TS_AREA)
        @

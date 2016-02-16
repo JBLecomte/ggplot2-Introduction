@@ -7,7 +7,7 @@ load('Data/df_data_survey.RData')
 df_data$AREA_num <- as.numeric(df_data$AREA)
 
 ## Number of years 
-nYear <- length(levels(df_data$YeaB_fac))
+nYear <- length(levels(df_data$Year_fac))
 
 ## number of observation per year
 nObs_t <- table(df_data$YeaB_fac)
@@ -16,12 +16,20 @@ nObs_t <- table(df_data$YeaB_fac)
 Depth_effect <- -0.5
 Temperature_effect <- 0.5
 AREA_effect <- c(-1, 0)
+Year_effect <- sort(rnorm(nYear, 0, 1))
 
+### Create a Year_id variable to assign an effet per year
+Year_id <- rep(NA, length(df_data$Year_fac))
+Year_id <- df_data$Year_fac
+levels(Year_id) <- as.character(1:nYear)
+Year_id <- as.numeric(Year_id)
 
+### Linear expression of the intensity parameter (Poisson) of the number of fish
 lambda_obs <- exp(2 + Depth_effect*df_data$Avg_net_depth +
                     Temperature_effect*df_data$Avg_net_temp +
-                    AREA_effect[df_data$AREA_num])
+                    AREA_effect[df_data$AREA_num] + Year_effect[Year_id])
 
+### Draw the number of fish
 nFish <- rpois(length(lambda_obs), lambda_obs)
 
 ## simulation of a quantity of biomass
@@ -37,7 +45,7 @@ df_data$nFish <- nFish
 df_data$Biomass <- Biomass
 
 ## Create a data.frame which summarize the df_data by Year
-df_data_summary <- ddply(df_data, c("Year"), summarise,
+df_data_summary <- ddply(df_data, c('Year'), summarise,
                                   B_mean=mean(Biomass),
                                   B_median=median(Biomass),
                                   B_sd=sd(Biomass),

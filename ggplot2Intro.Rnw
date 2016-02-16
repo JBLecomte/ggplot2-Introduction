@@ -21,7 +21,9 @@
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, urlcolor=blue}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Write code inline TeX
+\usepackage{listings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Maths
@@ -61,9 +63,12 @@
 \maketitle
 <<setup, include=FALSE>>=
 library(knitr)
-opts_chunk$set(fig.path='figure/', fig.align='center', fig.show='hold', size='footnotesize', out.width='.9\\linewidth')
+opts_chunk$set(fig.path='figure/', fig.align='center', fig.show='hold',
+               size='footnotesize', out.width='.9\\linewidth')
 opts_template$set(
-  fig.large = list(fig.width = 8, fig.height = 5),
+  fig.fullpage = list(fig.width = 8, fig.height = 12),
+  fig.large_square = list(fig.width = 8, fig.height = 8),
+  fig.large = list(fig.width = 8, fig.height = 7),
   fig.medium = list(fig.width = 8, fig.height = 4.5)
 )
 @
@@ -72,255 +77,649 @@ opts_template$set(
 %% Introduction
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Introduction}
-  \begin{itemize}
-    \item developped by Hadley Wickham (Rice University, Houston, USA)
-    \item highly recommanded R packages to work with ggplot2: reshape and plyr (also developped by H. Wickham)
-    \item first version called in 2007
-  \end{itemize}
+\begin{itemize}
+\item developped by Hadley Wickham (Rice University, Houston, USA)
+\item highly recommanded R packages to work with ggplot2: reshape and plyr (also developped by H. Wickham)
+\item first version called in 2007
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Useful books}
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \includegraphics[scale=0.45]{rgraphicscookbook}
-    \end{column}
-  
-    \begin{column}{0.5\textwidth}
-      \includegraphics[scale=0.45]{ggplot2}
-    \end{column}
-  \end{columns}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\includegraphics[scale=0.45]{rgraphicscookbook}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\includegraphics[scale=0.45]{ggplot2}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Online ressources}
-    	\begin{itemize}
-    	  \item ggplot2 official documentation:\\  \url{http://docs.ggplot2.org/current/}
-        \item R code related to ggplot2 cookbook:\\ \url{http://www.cookbook-r.com/Graphs/}
-        \item R code related to useR! ggplot2 book:\\ \url{http://ggplot2.org/book/}
-  		  \item Google groups to ask questions:\\ \url{ggplot2@googlegroups.com}
-        \item Github repository:\\ \url{https://github.com/yhat/ggplot/}
-			\end{itemize}
+\begin{itemize}
+\item ggplot2 official documentation:\\  \url{http://docs.ggplot2.org/current/}
+\item R code related to ggplot2 cookbook:\\ \url{http://www.cookbook-r.com/Graphs/}
+\item R code related to useR! ggplot2 book:\\ \url{http://ggplot2.org/book/}
+\item Google groups to ask questions:\\ \url{ggplot2@googlegroups.com}
+\item Statistical tools for high-throughput data analysis:\\ \url{http://www.sthda.com/english/wiki/ggplot2-essentials}
+\item Github repository:\\ \url{https://github.com/yhat/ggplot/}
+\end{itemize}
 \end{frame}
 
 
 \begin{frame}{Introduction}
-  \begin{itemize}
-    \item based on new aesthetic principles
-    \item based on \textit{The grammar of graphics} developed by Wilkinson in 2005
-    \item efficient way to produce simple graphics with a length reduction of R code
-  \end{itemize}
-  
-  \begin{alertblock}{Forget about R base graphics:}
-     \texttt{ plot(), hist(), par(), layout(), points(), lines(),legend()}
-  \end{alertblock}
+\begin{itemize}
+\item based on new aesthetic principles
+\item based on \textit{The grammar of graphics} developed by Wilkinson in 2005
+\item efficient way to produce simple graphics with a length reduction of R code
+\end{itemize}
+
+\begin{alertblock}{Forget about R base graphics:}
+\texttt{ plot(), hist(), par(), layout(), points(), lines(),legend()}
+\end{alertblock}
 \end{frame}
 
 \begin{frame}{Principle}
 ggplot2 is based on a \textbf{layer} system which can be used as objects.\\
 \vspace{1cm}
 Main layers
-  \begin{itemize}
-    \item data $\rightarrow$ raw data
-    \item mapping $\rightarrow$ graphic projection
-    \item geom $\rightarrow$ geometric objects (points, lines, polygons, ...)
-    \item stat $\rightarrow$ statistics transformation (histogram, model)
-    \item scale $\rightarrow$ aesthetics customization (color, shape, size, axes, legend)
-    \item coord $\rightarrow$ coordinate system (axes, grid)
-    \item facet $\rightarrow$ subdivision (lattice, trellis)
-  \end{itemize}
+\begin{itemize}
+\item data $\rightarrow$ raw data
+\item mapping $\rightarrow$ graphic projection
+\item geom $\rightarrow$ geometric objects (points, lines, polygons, ...)
+\item stat $\rightarrow$ statistics transformation (histogram, model)
+\item scale $\rightarrow$ aesthetics customization (color, shape, size, axes, legend)
+\item coord $\rightarrow$ coordinate system (axes, grid)
+\item facet $\rightarrow$ subdivision (lattice, trellis)
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Base functions}
 ggplot2 is based on two functions:
-  \begin{enumerate}
-		\item  \texttt{qplot()} for \textbf{q}uick \textbf{plot}
-		\begin{itemize}
-			\item easy and fast, but too simple in most cases
-			\item \texttt{qplot(x, y, data=data)}
-		\end{itemize}
-    \vspace{0.5cm}
-    \item \texttt{ggplot()}
-      	\begin{itemize}
-			\item more complex but more powerful and flexible by adding \texttt{layers}
-			\item \texttt{ggplot(data=data, aes(x, y)) + layers}
-		\end{itemize}
-  \end{enumerate}
+\begin{enumerate}
+\item  \texttt{qplot()} for \textbf{q}uick \textbf{plot}
+\begin{itemize}
+\item easy and fast, but too simple in most cases
+\item \texttt{qplot(x, y, data=data)}
+\end{itemize}
+\vspace{0.5cm}
+\item \texttt{ggplot()}
+\begin{itemize}
+\item more complex but more powerful and flexible by adding \texttt{layers}
+\item \texttt{ggplot(data=data, aes(x, y)) + layers}
+\end{itemize}
+\end{enumerate}
 \end{frame}
 
 
 \begin{frame}[fragile]{Getting Started}
 
-  \begin{alertblock}{Data format}
-    Always work with a \texttt{data.frame}
-  \end{alertblock}
-    Our data frame is based on the surveys XXXX and simulated data.
-    Github repository:\\ \url{https://github.com/JBLecomte/ggplot2-Introduction.git}
+\begin{alertblock}{Data format}
+Always work with a \texttt{data.frame}
+\end{alertblock}
+Our data frame is based on the surveys XXXX and simulated data.
+Github repository:\newline \url{https://github.com/JBLecomte/ggplot2-Introduction.git}
 \end{frame}
 
 \begin{frame}[fragile]{Getting Started}
-    <<str data, size = "scriptsize">>=
-      str(df_data)
-      @
+<<str data, size = "scriptsize">>=
+str(df_data)
+@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Example
+%% Example: scatter plot
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[fragile]{Scatter plot: Depth and Biomass}
-     <<scatter_plot_base, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-       scatter_plot <- ggplot(data=df_data, aes(x=Avg_net_depth, y=Biomass)) +
-                     geom_point()
-       print(scatter_plot)
-       @
+<<scatter_plot_base, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp <- ggplot(data=df_data, aes(x=Avg_net_depth, y=Biomass)) +
+  geom_point()
+print(sp)
+@
 \end{frame}
 
 \begin{frame}[fragile]{Scatter plot with color: Depth and Biomass}
-     <<scatter_plot_color, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-       scatter_plot_color <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
-                                              color=AREA)) +
-       geom_point()
-       print(scatter_plot_color)
-       @
+<<scatter_plot_color, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_color <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                color=AREA)) +
+  geom_point()
+print(sp_color)
+@
 \end{frame}
 
 
 \begin{frame}[fragile]{Scatter plot with shape: Depth and Biomass}
-     <<scatter_plot_shape, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-       scatter_plot_shape <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
-                                              color=AREA, shape=Year_fac)) +
-       geom_point()
-       print(scatter_plot_shape)
-       @
+<<scatter_plot_shape, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_shape <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                color=AREA, shape=Year_fac)) +
+  geom_point()
+print(sp_shape)
+@
 \end{frame}
 
 \begin{frame}[fragile]{Scatter plot with continuous color: Depth and Biomass}
-     <<scatter_plot_color_cont, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-       scatter_plot_color_cont <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
-                                              color=Avg_net_temp)) +
-       geom_point()
-       print(scatter_plot_color_cont)
-       @
+<<scatter_plot_color_cont, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_color_cont <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                     color=Avg_net_temp)) +
+  geom_point()
+print(sp_color_cont)
+@
 \end{frame}
 
 
 \begin{frame}[fragile]{Scatter plot with size: Depth and Biomass}
-     <<scatter_plot_color_size, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-       scatter_plot_area <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
-                                              size=Avg_net_temp)) +
-       geom_point()
-       print(scatter_plot_area)
-       @
+<<scatter_plot_color_size, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_area <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                               size=Avg_net_temp)) +
+  geom_point()
+print(sp_area)
+@
 \end{frame}
 
 \begin{frame}[fragile]{Improvement of a plot}
-     <<scatter_plot_shape2, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-       print(scatter_plot_shape)
-       @
+<<scatter_plot_shape2, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+print(sp_shape)
+@
 \end{frame}
 
 \begin{frame}[fragile]{Improvement of a plot: axes names}
-     <<scatter_plot_shape_imp1, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-       scatter_plot_shape_imp1 <- scatter_plot_shape + 
-       xlab('Average net depth (in m)') + ylab('Biomass (in kg)')
+<<scatter_plot_shape_imp1, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_shape_imp1 <- sp_shape + 
+  xlab('Average net depth (in m)') +
+  ylab('Biomass (in kg)')
 
-       print(scatter_plot_shape_imp1)
-       @
+print(sp_shape_imp1)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Improvement of a plot: axes options}
+\lstinline{scale_x_continuous(name, breaks, labels, limits, trans)}
+\lstinline{scale_y_continuous(name, breaks, labels, limits, trans)}
+
+\begin{itemize}
+
+\item    name : x or y axis labels
+\item    breaks : to control the breaks in the guide (axis ticks, grid lines, …). Among the possible values, there are :
+        NULL : hide all breaks
+        waiver() : the default break computation
+        a character or numeric vector specifying the breaks to display
+\item labels : labels of axis tick marks. Allowed values are :
+        NULL for no labels
+        waiver() for the default labels
+        character vector to be used for break labels
+\item limits : a numeric vector specifying x or y axis limits (min, max)
+    trans for axis transformations. Possible values are “log2”, “log10”, …
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Improvement of a plot: axes options}
+<<scatter_plot_shape_imp1x, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_shape_imp1 <- sp_shape + 
+  scale_x_continuous(name='Average net depth (in m)',
+                     breaks=seq(-4,7,2), limits=c(-4,7)) +
+  ylab('Biomass (in kg)')
+print(sp_shape_imp1)
+@
 \end{frame}
 
 \begin{frame}[fragile]{Improvement of a plot: legend titles}
-     <<scatter_plot_shape_imp2, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-       scatter_plot_shape_imp2 <- scatter_plot_shape_imp1 + 
-       scale_shape_discrete(name="Years") +
-       scale_color_discrete(name="Area")
+<<scatter_plot_shape_imp2, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_shape_imp2 <- sp_shape_imp1 + 
+  scale_shape_discrete(name="Years") +
+  scale_color_discrete(name="Area")
 
-       print(scatter_plot_shape_imp2)
-       @
+print(sp_shape_imp2)
+@
 \end{frame}
 
 
 \begin{frame}[fragile]{Improvement of a plot: plot title}
-     <<scatter_plot_shape_imp3, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-       scatter_plot_shape_imp3 <- scatter_plot_shape_imp2 + 
-        ggtitle("Biomass of species X and average net depth")
+<<scatter_plot_shape_imp3, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_shape_imp3 <- sp_shape_imp2 + 
+  ggtitle("Biomass of species X and average net depth")
 
-       print(scatter_plot_shape_imp3)
-       @
+print(sp_shape_imp3)
+@
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example: scatter plot with discrete color
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Discrete color scale}
+<<scatter_plot_discrete_color1, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_color <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                color=AREA)) +
+  geom_point(alpha=0.8)
+print(sp_color)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Discrete color scale: manual}
+<<scatter_plot_discrete_color2, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_c_manual <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                   color=AREA)) +
+  geom_point(alpha=0.8) +
+  scale_color_manual(name='Area', values=c("#E69F00", "#56B4E9"))
+print(sp_c_manual)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Discrete color scale: manual}
+<<scatter_plot_discrete_color3, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_c <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                            color=factor(Year))) +
+  geom_point(alpha=0.8) +
+  xlab('Average net depth')
+print(sp_c)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Discrete color scale: brewer palette}
+<<scatter_plot_discrete_color4, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.fullpage'>>=
+sp_c_brewer <- sp_c +
+  scale_color_brewer(name='Year', palette="Dark2")
+print(sp_c_brewer)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Discrete color scale: brewer palettes}
+<<Brewerpalettes, echo=FALSE, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.large'>>=
+display.brewer.all()
+@
+\end{frame}
+
+\begin{frame}[fragile]{Discrete color scale: wesanderson palettes}
+<<wesanderson, eval=FALSE, echo=TRUE>>=
+library(wesanderson)
+@
+\begin{center}
+\includegraphics[scale=0.5]{wesanderson-color.png}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Discrete color scale: wesanderson palettes}
+<<scatter_plot_discrete_color_wa2, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_c_wanderson <- sp_c +
+  scale_color_manual(name='Year', values=wes_palette(name="Darjeeling"))
+print(sp_c_wanderson)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Discrete color scale: \lstinline{scale_colour_hue}}
+<<scatter_plot_discrete_color_hue1, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+# Adjust luminosity and chroma
+sp_c_hue <- sp_c +
+ scale_colour_hue(name='Year', l=70, c=150)
+print(sp_c_hue)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Discrete color scale: \lstinline{scale_colour_hue}}
+<<scatter_plot_discrete_color_hue2, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+# Adjust luminosity and chroma
+sp_c_hue <- sp_c +
+ scale_colour_hue(name='Year', l=10, c=150)
+print(sp_c_hue)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Discrete color scale: \lstinline{scale_colour_hue}}
+<<scatter_plot_discrete_color_hue3, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+# Change range of hues used
+sp_c_hue <- sp_c +
+ scale_colour_hue(name='Year', h=c(0, 90))
+print(sp_c_hue)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Discrete color scale: \lstinline{scale_color_grey}}
+<<scatter_plot_discrete_color5, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_c_grey <- sp_c +
+  scale_color_grey(name='Year')
+print(sp_c_grey)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Discrete color scale: \lstinline{scale_color_grey}}
+<<scatter_plot_discrete_color6, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+sp_c_grey <- sp_c +
+  scale_color_grey(name='Year', start=0.8, end=0.2)
+print(sp_c_grey)
+@
 \end{frame}
 
 \begin{frame}[fragile]{A quick overview of the ggplot2 types}
 \begin{itemize}
-% 			\item Points, as for a scatterplot \texttt{geom_point()}
-        \item %Lines \texttt{geom_line()}
-% 			\item Histogram \texttt{geom_bar()}
-% 			\item Boxplot \texttt{geom_boxplot()}
-% 			\item Polygon \texttt{geom_polygon}
-% 			\item Draw rectangles \texttt{geom_raster}
-% 			\item Smooth density estimate \texttt{geom_density}
-% 			\item Map \texttt{ggmap()}
-		\end{itemize}
+ \item Points, as for a scatterplot: \lstinline{geom_point()}
+ \item Lines: \lstinline{geom_line()}
+ \item Histogram: \lstinline{geom_freqpoly(geom_histogram, stat_bin)}
+ \item Boxplot: \lstinline{geom_boxplot()}
+ \item Polygon: \lstinline{geom_polygon}
+ \item Draw rectangles: \lstinline{geom_raster}
+ \item Smooth density estimate: \lstinline{geom_density}
+ \item Ribbons and area plots: \lstinline{geom_ribbon(geom_area)}
+ \item Map: \lstinline{ggmap()}
+\end{itemize}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Time series
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}[fragile]{Time series}
-     <<scatter_plot_TSplot, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-      scatter_TSplot <- ggplot(data=df_data, aes(x=Date, y=Biomass)) + 
-                    geom_point()
-      print(scatter_TSplot)
-       @
+<<scatter_plot_TSplot, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+TSplot <- ggplot(data=df_data, aes(x=Date, y=Biomass)) + 
+  geom_point()
+print(TSplot)
+@
 \end{frame}
 
 
 \begin{frame}[fragile]{Time series}
-     <<scatter_plot_TSplot_year, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-      scatter_TSplot_year <- ggplot(data=df_data, aes(x=Year, y=Biomass)) + 
-                          geom_point()
-      print(scatter_TSplot_year)
-       @
+<<scatter_plot_TSplot_year, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+TSplot_year <- ggplot(data=df_data, aes(x=Year, y=Biomass)) + 
+  geom_point()
+print(TSplot_year)
+@
 \end{frame}
 
 
 \begin{frame}[fragile]{Time series with error bars}
-     <<scatter_plot_TSplot_i95, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-        scatter_TSplot_i95 <- ggplot(data=df_data_summary, aes(x=Year, y=B_mean)) + 
-                    geom_point() + 
-                    geom_pointrange(aes(ymin = B_q025, ymax = B_q975))
-        print(scatter_TSplot_i95)
-       @
+<<scatter_plot_TSplot_i95, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+TSplot_i95 <- ggplot(data=df_data_summary, aes(x=Year, y=B_mean)) + 
+  geom_point() + 
+  geom_pointrange(aes(ymin = B_q025, ymax = B_q975))
+print(TSplot_i95)
+@
 \end{frame}
 
 
 \begin{frame}[fragile]{Time series with error bars}
-     <<scatter_plot_TSplot_errori95, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-        scatter_TSplot_errori95 <- ggplot(data=df_data_summary, aes(x=Year, y=B_mean)) + 
-                    geom_line() + 
-                    geom_errorbar(aes(ymin = B_q025, ymax = B_q975), width = 0.2)
-        print(scatter_TSplot_errori95)
-       @
+<<scatter_plot_TSplot_errori95, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+TSplot_errori95 <- ggplot(data=df_data_summary, aes(x=Year, y=B_mean)) + 
+  geom_line() + 
+  geom_errorbar(aes(ymin = B_q025, ymax = B_q975), width = 0.2)
+print(TSplot_errori95)
+@
 \end{frame}
 
 \begin{frame}[fragile]{Boxplot}
-     <<boxplot_TS, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-    boxplot_TS <- ggplot(data=df_data, aes(x=Year, y=Biomass)) + 
-      geom_boxplot()
-    print(scatter_TSplot_i95)
-       @
+<<boxplot_TS, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+boxplot_TS <- ggplot(data=df_data, aes(x=Year, y=Biomass)) + 
+  geom_boxplot()
+print(boxplot_TS)
+@
 \end{frame}
 
 
 \begin{frame}[fragile]{Boxplot with Year as a factor}
-     <<boxplot_TSf, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-      boxplot_TSf <- ggplot(data=df_data, aes(x=factor(Year), y=Biomass)) + 
-        geom_boxplot() 
-      print(boxplot_TSf)
-       @
+<<boxplot_TSf, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+boxplot_TSf <- ggplot(data=df_data, aes(x=factor(Year), y=Biomass)) + 
+  geom_boxplot() 
+print(boxplot_TSf)
+@
 \end{frame}
 
-\begin{frame}[fragile]{Boxplot with Year as a factor}
-     <<boxplot_TSf_AREA, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
-      boxplot_TS_AREA <- ggplot(data=df_data, aes(x=factor(Year), y=Biomass, 
-                                                  colour=AREA)) +
-        geom_boxplot()
-      print(boxplot_TS_AREA)
-       @
+\begin{frame}[fragile]{Boxplot with Year and Area as a factor}
+<<boxplot_TSf_AREA, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+boxplot_TS_AREA <- ggplot(data=df_data, aes(x=factor(Year), y=Biomass, 
+                                            colour=AREA)) +
+  geom_boxplot()
+print(boxplot_TS_AREA)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Time series with error bars: Improvement}
+<<scatter_plot_TSplot_i95_bis, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+TSplot_i95 <- ggplot(data=df_data_summary, aes(x=Year, y=B_mean)) + 
+  geom_point() + 
+  geom_pointrange(aes(ymin = B_q025, ymax = B_q975))
+print(TSplot_i95)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Time series with error bars: Improvement}
+<<scatter_plot_TSplot_i95_imp, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+TSplot_i95 <- ggplot(data=df_data_summary, aes(x=Year, y=B_mean)) + 
+  geom_point() + geom_pointrange(aes(ymin = B_q025, ymax = B_q975)) +
+  ylab('Biomass') +
+  scale_x_continuous(name = 'Year', breaks = seq(2005, 2013, by = 1))
+print(TSplot_i95)
+@
+\end{frame}
+
+%%% X-axis as a Date format
+
+\begin{frame}[fragile]{Time series: x-axis as date}
+<<TSplot_i95d1, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+TSplot <- ggplot(data=df_data, aes(x=Date, y=Biomass)) + 
+  geom_point() + 
+  ylab('Biomass')
+print(TSplot)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Time series: x-axis as date}
+<<TSplot_i95d4, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+# Months only
+TSplotm <- TSplot +
+  scale_x_date(labels = date_format("%y/%b"), date_breaks="1 year",
+               date_minor_breaks = "1 month") +
+  theme(axis.text.x = element_text(angle=45))
+  print(TSplotm)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Time series: x-axis as date}
+<<TSplot_i95d3, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+# Format : Week
+TSplotym <- TSplot +
+  scale_x_date(labels = date_format("%Y/%m"))
+  print(TSplotw)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Time series: x-axis as date}
+<<TSplot_i95d2, eval=TRUE, dev='pdf', tidy=FALSE,warning=FALSE, opts.label='fig.medium'>>=
+# Format : Year/month/day
+lmin <- as.Date("2011-1-1"); lmax <- max(df_data$Date)
+TSplotymdl <- TSplot +
+  scale_x_date(labels = date_format("%y/%m/%d"), limits = c(lmin, lmax))
+  print(TSplotymdl)
+@
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% facet
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Faceting: \lstinline{facet_wrap}}
+<<facet_wrap_1, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fw1 <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram() + facet_wrap(~ AREA)
+print(fw1)
+@
+\end{frame}
+
+\begin{frame}[fragile]{\lstinline{facet_wrap}: free scales}
+<<facet_wrap_2, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fw1_free <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram(binwidth=1) + facet_wrap(~ AREA , scales = 'free')
+print(fw1_free)
+@
+\end{frame}
+
+\begin{frame}[fragile]{\lstinline{facet_wrap}: free y scale}
+<<facet_wrap_3, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fw1_free_y <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram(binwidth=1) + facet_wrap(~ AREA , scales = 'free_y')
+print(fw1_free_y)
+@
+\end{frame}
+
+\begin{frame}[fragile]{\lstinline{facet_wrap}: free y scale}
+<<facet_wrap_4, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fw1_col <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram(binwidth=1) + facet_wrap(~ AREA, ncol = 1, nrow = 2, scales = 'fixed')
+print(fw1_col)
+@
+\end{frame}
+
+\begin{frame}[fragile]{\lstinline{facet_wrap}: free y scale}
+<<facet_wrap_5, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fw2 <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram(binwidth=1) + facet_wrap(~ AREA + Year_fac)
+print(fw2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{\lstinline{facet_wrap}: free y scale}
+<<facet_wrap_6, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fw2_2 <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram(binwidth=1) + facet_wrap( ~ Year_fac + AREA)
+print(fw2_2)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{\lstinline{facet_grid}: more flexible}
+<<facet_grid_1, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fg1_1 <- ggplot(data=df_data, aes(x=Avg_net_depth, y=nFish, color=AREA)) + 
+  geom_point() + facet_grid(. ~ Year)
+print(fg1_1)
+@
+\end{frame}
+
+\begin{frame}[fragile]{\lstinline{facet_grid}: change faceting display}
+<<facet_grid_2, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fg1_2 <- ggplot(data=df_data, aes(x=Avg_net_depth, y=nFish, color=AREA)) + 
+  geom_point() + facet_grid(Year ~ .)
+print(fg1_2)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{\lstinline{facet_grid}: facet with all the data}
+<<facet_grid_3, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fg1_3 <- ggplot(data=df_data, aes(x=Avg_net_depth, y=nFish, color=AREA)) + 
+  geom_point() + facet_grid(Year ~ ., margins = TRUE)
+print(fg1_3)
+@
+\end{frame}
+
+\begin{frame}[fragile]{\lstinline{facet_grid}: two faceting factors}
+<<facet_grid_4, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fg2_1 <- ggplot(data=df_data, aes(x=Avg_net_depth, y=nFish)) + 
+  geom_point() + facet_grid(~ Year + AREA)
+print(fg2_1)
+@
+\end{frame}
+
+\begin{frame}[fragile]{\lstinline{facet_grid}: two faceting factors}
+<<facet_grid_5, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fg2_2 <- ggplot(data=df_data, aes(x=Avg_net_depth, y=nFish)) + 
+  geom_point(binwidth=1) + facet_grid(AREA ~ Year)
+print(fg2_2)
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]{\lstinline{facet_grid}: scales and space free}
+<<facet_grid_6, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fg2_3 <- ggplot(data=df_data, aes(x=Avg_net_depth, y=nFish)) + 
+  geom_point(binwidth=1) + facet_grid(AREA ~ Year, scales='free', space = 'free')
+print(fg2_3)
+@
+\end{frame}
+
+\begin{frame}[fragile]{\lstinline{facet_grid}: renaming labels}
+Replace manually names factor:
+<<facet_grid_7, eval=FALSE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+levels(df_data$Year) <- letters[1:nlevels(df_data$Year)]
+@
+Or write a function:
+<<facet_grid_8, eval=FALSE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+## string is the levels of a factor
+fn_alphabetic_label <- function(string){
+  for ( i in 1:length(string)){
+    string[i] <- letters[i]
+  }
+  return(string) 
+}
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{\lstinline{facet_grid}: renaming labels}
+<<facet_grid_9, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fg1_3a <- ggplot(data=df_data, aes(x=Avg_net_depth, y=nFish, color=AREA)) + 
+  geom_point(binwidth=1) +
+  facet_grid(Year ~ ., labeller = labeller(Year = fn_alphabetic_label))
+print(fg1_3a)
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]{\lstinline{facet_grid}: changing facets}
+<<facet_grid_10, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+fg2_3b <- fg2_3 + 
+    theme(strip.text.x = element_text(size=8, angle=45),
+          strip.text.y = element_text(size=12, face="bold"),
+          strip.background = element_rect(colour="red", fill=NA))
+print(fg2_3b)
+@
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theme
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Theme}
+<<theme_1, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+print(fg1_3a)
+@
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Saving
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{\lstinline{facet_grid}: changing facets}
+<<ggsave1, eval=TRUE, dev='pdf', tidy=FALSE, opts.label='fig.medium'>>=
+print(fg1_3a)
+@
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Useful R packages which use ggplot2}
+\begin{itemize}
+\item	ggfortify and its autoplot() function allows plotting some popular R packages using a standardized approach. \\
+Diagnostic plots with Generalized Linear Models (GLM), Plotting Principal Component Analysis ...
+\item MCMC plots: ggmcmc \\ install.packages("ggmcmc", dependencies=TRUE)
+\item Correlation plots: GGally \\ install.packages("GGally", dependencies=TRUE))
+\item Latex expression in plot: latex2exp \\ install.packages("latex2exp", dependencies=TRUE))
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Useful R packages which use ggplot2}
+\begin{center}
+Thank you for your attention.\\
+\vspace{0.5cm}
+Questions ?\\
+\vspace{0.5cm}
+Code available at: \url{https://github.com/JBLecomte/ggplot2-Introduction.git}
+
+\end{center}
 \end{frame}
 
 \end{document}

@@ -5,7 +5,7 @@
 #### Load required package, and install it if not
 list.of.packages <- c('ggplot2', 'RColorBrewer', 'grid',
                       'plyr', 'reshape2', 'dplyr',
-                      'scales', 'gridExtra',
+                      'scales', 'gridExtra', 'latex2exp',
                       'maps','mapdata',
                       'knitr', 'knitLiteral',
                       'tools')
@@ -22,6 +22,12 @@ lapply(list.of.packages, require, character.only=T)
 #### Sober plot theme
 #source('R/Fun/Theme_ggplot2.R')
 
-#### Unpack the object stored in a list
+### Unpack the object stored in a list
 source('R/Fun/unpack.list.R')
 
+### Function to change label in faceted plot
+source('R/Fun/fn_alphabetic_label.R')
+source('R/Fun/fn_TeX_label.R')
+
+### Function to display multiple-ggplots 
+source('R/Fun/multi_ggplot2.R')

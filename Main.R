@@ -12,8 +12,12 @@ source('R/Data_Simulation/Data_Simulation_Year.R')
 ## Explanatory plots
 source('R/Scatter_PLots/ScatterPlot_Simple.R')
 
-## Explanatory plots
+## Time series plots
 source('R/TimeSeries/TS_all.R')
+
+## Facet plots
+source('R/Facet_Plots/Facet_wrap_plot.R')
+source('R/Facet_Plots/Facet_grid_plot.R')
 
 
 ## Compile Rnw to tex

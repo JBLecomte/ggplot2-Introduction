@@ -3,6 +3,9 @@
 ###########################################
 rm(list = ls())
 
+## If tex is TRUE, it will generate a tex file and a pdf
+Tex <- TRUE
+
 ## Source useful package and functions
 source('R/Fun/Boot.R')
 
@@ -27,11 +30,13 @@ source('R/Box_Plots/boxplots.R')
 source('R/Facet_Plots/Facet_wrap_plot.R')
 source('R/Facet_Plots/Facet_grid_plot.R')
 
-
-## Compile Rnw to tex
-knit('ggplot2Intro.Rnw', 'ggplot2Intro.tex', quiet=TRUE)
-
-## Compile tex to pdf, you need Texlive or Miktex 
-## with pdflatex.exe in your Environment variables
-texi2pdf('ggplot2Intro.tex', clean=TRUE)
-
+if(Tex){
+  ## Compile Rnw to tex
+  knit(input = 'ggplot2Intro.Rnw', output = 'ggplot2Intro.tex', quiet = TRUE)
+  
+  
+  ## Compile tex to pdf, you need Texlive or Miktex 
+  ## with pdflatex.exe in your Environment variables
+  ## Warning: it can take time to run
+  texi2pdf(file = 'ggplot2Intro.tex', clean = TRUE)
+}

@@ -1160,7 +1160,7 @@ ggsave(plot=sp_legend_c, filename = 'sp_legend_c.pdf', path = '~/figure',
 
 \begin{frame}{Useful R packages which use ggplot2}
 \begin{itemize}
-\item	A website which reference ggplot2 extension \url{https://ggplot2-exts.github.io/index.html}
+\item	A website which references ggplot2 extension \url{https://ggplot2-exts.github.io/index.html}
 
 \item	\textbf{ggfortify} and its autoplot() function allows plotting some popular R packages using a standardized approach. \\
 Diagnostic plots with Generalized Linear Models (GLM), Plotting Principal Component Analysis ...

@@ -4,6 +4,7 @@
 
 #### Load required package, and install it if not
 list.of.packages <- c('ggplot2', 'RColorBrewer', 'grid',
+                      'wesanderson', 'ggthemes',
                       'plyr', 'reshape2', 'dplyr',
                       'scales', 'gridExtra', 'latex2exp',
                       'maps','mapdata',
@@ -11,10 +12,10 @@ list.of.packages <- c('ggplot2', 'RColorBrewer', 'grid',
                       'tools')
 
 
-# new.packages <- list.of.packages[!(list.of.packages %in%
-#                                      installed.packages(lib.loc = 'packrat/lib/x86_64-w64-mingw32/3.1.2' )[,"Package"])]
-# 
-# if(length(new.packages)){ install.packages(new.packages)}
+new.packages <- list.of.packages[!(list.of.packages %in%
+                                     installed.packages()[,"Package"])]
+
+if(length(new.packages)){ install.packages(new.packages)}
 
 lapply(list.of.packages, require, character.only=T)
 
@@ -30,4 +31,4 @@ source('R/Fun/fn_alphabetic_label.R')
 source('R/Fun/fn_TeX_label.R')
 
 ### Function to display multiple-ggplots 
-source('R/Fun/multi_ggplot2.R')
+source('R/Fun/gg_multiplot.R')

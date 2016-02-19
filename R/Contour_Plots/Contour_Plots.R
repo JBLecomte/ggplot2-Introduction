@@ -11,6 +11,4 @@ contour_plot <- contour_plot +
 ### Start to play with contour functions
 contour_plot <- contour_plot + geom_density_2d() 
 
-contour_plot <- contour_plot + geom_raster(aes(fill = density)) +
-  geom_contour(colour = "white")
 

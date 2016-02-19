@@ -15,7 +15,7 @@ Directories
 
 **R/** - All R codes organized in subdirectories:
 
-**R/Fun/** R functions required to run the analysis  
+**R/Fun/** - R functions required to run the analysis  
 
 
 Contact info

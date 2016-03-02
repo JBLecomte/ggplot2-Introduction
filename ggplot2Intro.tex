@@ -254,8 +254,8 @@ Download all the codes from a Github repository:\newline \url{https://github.com
 ##  $ Pres            : num  1 1 1 1 1 1 1 0 0 1 ...
 ##  $ Year_fac        : Factor w/ 5 levels "2005","2007",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ AREA_num        : num  1 1 1 1 1 1 1 1 1 1 ...
-##  $ nFish           : int  1 1 2 3 1 1 1 0 1 0 ...
-##  $ Biomass         : num  4.01 3.4 8.51 6.01 4.06 ...
+##  $ nFish           : int  4 1 0 5 2 3 1 2 4 1 ...
+##  $ Biomass         : num  10.38 6.75 0 13.04 7.2 ...
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -1078,16 +1078,16 @@ The ddply function from the plyr R package provides an easy way to summarize the
 \begin{verbatim}
 ## 'data.frame':	5 obs. of  11 variables:
 ##  $ Year    : int  2005 2007 2009 2011 2013
-##  $ B_mean  : num  58.1 34.7 88.8 99.4 178.3
-##  $ B_median: num  19.6 11.7 36.8 36.2 56.6
-##  $ B_sd    : num  94.8 59.1 145.7 161.6 291.7
+##  $ B_mean  : num  113.9 57.2 109.3 114.9 143.6
+##  $ B_median: num  35.9 16.5 46 41.3 47.1
+##  $ B_sd    : num  189.9 97.1 181 187.6 236.5
 ##  $ B_q025  : num  0 0 0 0 0
-##  $ B_q05   : num  0 0 0 0 1.88
-##  $ B_q10   : num  0 0 2.44 1.93 3.87
-##  $ B_q50   : num  19.6 11.7 36.8 36.2 56.6
-##  $ B_q90   : num  199 107 243 291 532
-##  $ B_q95   : num  265 177 406 432 834
-##  $ B_q975  : num  332 215 613 572 1112
+##  $ B_q05   : num  0 0 0.74 0 1.28
+##  $ B_q10   : num  1.35 0 2.41 2.88 3.33
+##  $ B_q50   : num  35.9 16.5 46 41.3 47.1
+##  $ B_q90   : num  381 178 315 344 405
+##  $ B_q95   : num  537 278 492 525 668
+##  $ B_q975  : num  670 385 759 690 869
 \end{verbatim}
 \end{kframe}
 \end{knitrout}

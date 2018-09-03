@@ -8,7 +8,7 @@ list.of.packages <- c('ggplot2', 'RColorBrewer', 'grid',
                       'plyr', 'reshape2', 'dplyr',
                       'scales', 'gridExtra', 'latex2exp',
                       'maps','mapdata',
-                      'knitr', 'knitLiteral',
+                      'knitr', #'knitLiteral',
                       'tools')
 
 

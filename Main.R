@@ -2,6 +2,10 @@
 ## Main R script, which runs the analysis
 ###########################################
 rm(list = ls())
+# setwd('Z:\\Projects\\ggplot2-Introduction')
+
+
+# setwd('Z:\\Projects\\SPERA-Geostat')
 
 ## If tex is TRUE, it will generate a tex file and a pdf
 Tex <- TRUE
@@ -30,13 +34,19 @@ source('R/Box_Plots/boxplots.R')
 source('R/Facet_Plots/Facet_wrap_plot.R')
 source('R/Facet_Plots/Facet_grid_plot.R')
 
-if(Tex){
-  ## Compile Rnw to tex
-  knit(input = 'ggplot2Intro.Rnw', output = 'ggplot2Intro.tex', quiet = TRUE)
-  
-  
-  ## Compile tex to pdf, you need Texlive or Miktex 
-  ## with pdflatex.exe in your Environment variables
-  ## Warning: it can take time to run
-  texi2pdf(file = 'ggplot2Intro.tex', clean = TRUE)
-}
+# if(Tex){
+#   ## Compile Rnw to tex
+#   knit(input = 'ggplot2Intro.Rnw', output = 'ggplot2Intro.tex', quiet = TRUE)
+#   
+#   
+#   ## Compile tex to pdf, you need Texlive or Miktex 
+#   ## with pdflatex.exe in your Environment variables
+#   ## Warning: it can take time to run
+#   texi2pdf(file = 'ggplot2Intro.tex', clean = TRUE)
+# }
+
+## Make a .html document 
+rmarkdown::render(input = 'ggplot2Intro.Rmd',
+                  output_format = "html_document",
+                  output_file = paste0('ggplot2_intro.html')
+                  )

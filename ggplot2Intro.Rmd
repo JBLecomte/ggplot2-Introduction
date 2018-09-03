@@ -1,0 +1,1000 @@
+---
+title: "Introduction to ggplot2"
+author: "Jean-Baptiste Lecomte"
+output: slidy_presentation
+---
+
+```{r  setup, include=FALSE}
+library(knitr)
+opts_chunk$set(fig.path='figure/', fig.align='center', fig.show='hold',
+               size='footnotesize', out.width='.9\\linewidth')
+opts_template$set(
+  fig.fullpage = list(fig.width = 8, fig.height = 12),
+  fig.large_square = list(fig.width = 8, fig.height = 8),
+  fig.large = list(fig.width = 8, fig.height = 5),
+  fig.medium = list(fig.width = 8, fig.height = 4.5),
+  fig.small = list(fig.width = 8, fig.height = 3)
+)
+```
+
+
+## Introduction
+
+- developed by Hadley Wickham (Rice University, Houston, USA)
+- highly recommended R packages to work with ggplot2: reshape2 and plyr (also developed by H. Wickham)
+- first version called in 2007
+
+
+
+<!-- ## Useful books} -->
+<!-- \begin{columns} -->
+<!-- \begin{column}{0.5\textwidth} -->
+<!-- \includegraphics[scale=0.45]{r graphicscookbook} -->
+<!-- \end{column} -->
+
+<!-- \begin{column}{0.5\textwidth} -->
+<!-- \includegraphics[scale=0.45]{ggplot2} -->
+<!-- \end{column} -->
+<!-- \end{columns} -->
+
+
+## Online resources
+
+- ggplot2 official documentation:\\ <http://docs.ggplot2.org/current/>
+- R code related to ggplot2 cookbook:\\<http://www.cookbook-r.com/Graphs/>
+- R code related to useR! ggplot2 book:\\<http://ggplot2.org/book/>
+- Google groups to ask questions:\\<ggplot2```googlegroups.com>
+- Statistical tools for high-throughput data analysis:\\<http://www.sthda.com/english/wiki/ggplot2-essentials>
+- Github repository:\\<https://github.com/yhat/ggplot/>
+- RStudio Cheat Sheet :\\<http://www.rstudio.com/wp-content/uploads/2015/12/ggplot2-cheatsheet-2.0.pdf>
+
+
+
+
+## Introduction
+
+- based on *new* aesthetic principles
+- based on *The grammar of graphics* developed by Wilkinson in 2005
+- efficient way to produce simple graphics with a length reduction of R code
+
+
+Forget about R base graphics:
+*\texttt{plot(), hist(), par(), layout(), points(), lines(),legend()*
+
+
+
+## Principle
+ggplot2 is based on a **layer** system which can be used as objects.\\
+Main layers
+
+- data $\rightarrow$ raw data
+- mapping $\rightarrow$ graphic projection
+- geom $\rightarrow$ geometric objects (points, lines, polygons, ...)
+- stat $\rightarrow$ statistics transformation (histogram, model)
+- scale $\rightarrow$ aesthetics customization (colour, shape, size, axes, legend)
+- coord $\rightarrow$ coordinate system (axes, grid)
+- facet $\rightarrow$ subdivision (lattice, trellis)
+
+
+
+## Base functions
+ggplot2 is based on two functions:
+
+
+-  *qplot()* for **q**uick **plot**
+
+- easy and fast, but too simple in most cases
+ *qplot(x, y, data=data)*
+
+
+- *ggplot()*
+
+- more complex but more powerful and flexible by adding *layers
+- *ggplot(data=data, aes(x, y)) + layers*
+
+## Getting Started
+
+Always work with a data.frame
+
+Our data frame is based on the Hecate Strait Synoptic Trawl Survey and simulated data.
+
+Download all the codes from a Github repository: 
+<https://github.com/JBLecomte/ggplot2-Introduction.git>
+
+
+## Getting Started
+```{r str data, size = "scriptsize"}
+str(df_data)
+```
+
+## A quick overview of the ggplot2 types
+
+- Points, as for a scatterplot: *geom_point()*
+- Lines: *geom_line()*
+- Histogram: *geom_freqpoly(geom_histogram(), stat_bin())*
+- Boxplot: *geom_boxplot()*
+- Polygon: *geom_polygon()*
+- Draw rectangles: *geom_raster()*
+- Smooth density estimate: *geom_density()*
+- Ribbons and area plots: *geom_ribbon(geom_area())*
+- Map: *ggmap()*
+
+
+## Scatter plot: Depth and Biomass
+```{r sp_base, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp <- ggplot(data=df_data, aes(x=Avg_net_depth, y=Biomass)) +
+  geom_point(size=1)
+print(sp)
+```
+
+
+## Scatter plot with color: Depth and Biomass
+```{r sp_color, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_color <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                color=AREA)) +
+  geom_point(size=1)
+print(sp_color)
+```
+
+
+
+## Scatter plot with shape: Depth and Biomass
+```{r sp_shape, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_shape <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                color=AREA, shape=Year_fac)) +
+  geom_point(size=1)
+print(sp_shape)
+```
+
+
+## Scatter plot with continuous color: Depth and Biomass
+```{r sp_color_cont, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_color_cont <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                     color=Avg_net_temp)) +
+  geom_point(size=1)
+print(sp_color_cont)
+```
+
+
+
+## Scatter plot with size: Depth and Biomass
+```{r sp_color_size, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_area <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                               size=nFish)) +
+  geom_point(shape=17)
+print(sp_area)
+```
+
+
+## Improvement of a plot
+```{r sp_shape2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_shape <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                color=AREA, shape=Year_fac)) +
+  geom_point(size=1)
+print(sp_shape)
+```
+
+
+## Improvement of a plot: axes names
+```{r sp_shape_imp1, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_shape_imp1 <- sp_shape + 
+  xlab('Average net depth (m)') +
+  ylab('Biomass (kg)')
+print(sp_shape_imp1)
+```
+
+
+## Improvement of a plot: axes options
+```{r scale, eval=FALSE,  tidy=FALSE, opts.label='fig.medium'}
+scale_x_continuous(name, breaks, labels, limits, trans)
+scale_y_continuous(name, breaks, labels, limits, trans)
+```
+
+
+-    name : x or y axis labels
+-    breaks : to control the breaks in the guide (axis ticks, grid lines,...).
+Among the possible values, there are :
+NULL : hide all breaks
+waiver() : the default break computation a character or numeric vector specifying the breaks to display
+- labels : labels of axis tick marks. Allowed values are :
+NULL for no labels
+waiver() for the default labels
+character vector to be used for break labels
+- limits : a numeric vector specifying x or y axis limits (min, max)
+- trans for axis transformations. Possible values are "log2", "log10"
+
+
+
+## Improvement of a plot: axes options
+```{r sp_shape_imp1x, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_shape_imp1 <- sp_shape_imp1 + 
+  scale_x_continuous(name='Average net depth (m)',
+                     breaks=seq(-4,7,2), limits=c(-4,7))
+print(sp_shape_imp1)
+```
+
+
+## Improvement of a plot: legend titles
+```{r sp_shape_imp2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_shape_imp2 <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                                     color=AREA, shape=Year_fac)) +
+  geom_point(size=1) + xlab('Average net depth (m)') + 
+  scale_shape_discrete(name="Years") + scale_color_discrete(name="Area")
+print(sp_shape_imp2)
+```
+
+
+
+## Improvement of a plot: plot title
+```{r sp_shape_imp3, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_shape_imp3 <- sp_shape_imp2 + 
+  ggtitle("Biomass of species X and average net depth")
+print(sp_shape_imp3)
+```
+
+
+
+## Discrete color scale
+```{r sp_discrete_color1, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_c <- ggplot(df_data, aes(x=Avg_net_depth, y=Biomass,
+                            color=Year_fac)) +
+  geom_point(alpha=0.8, size=1) + xlab('Average net depth (m)')
+print(sp_c)
+```
+
+
+## Discrete color scale: *scale_colour_hue*
+```{r sp_discrete_color_hue1, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+# Adjust luminosity and chroma
+sp_c_hue <- sp_c +
+  scale_colour_hue(name='Year', l=70, c=150)
+print(sp_c_hue)
+```
+
+
+## Discrete color scale: *scale_colour_hue*
+```{r sp_discrete_color_hue2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+# Adjust luminosity and chroma
+sp_c_hue <- sp_c +
+  scale_colour_hue(name='Year', l=10, c=150)
+print(sp_c_hue)
+```
+
+
+## Discrete color scale: *scale_colour_hue*
+```{r sp_discrete_color_hue2b, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+# Adjust luminosity and chroma
+sp_c_hue <- sp_c +
+  scale_colour_hue(name='Year', l=70, c=50)
+print(sp_c_hue)
+```
+
+
+## Discrete color scale: *scale_colour_hue*
+```{r sp_discrete_color_hue3, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+# Change range of hues used
+sp_c_hue <- sp_c +
+  scale_colour_hue(name='Year', h=c(0, 90))
+print(sp_c_hue)
+```
+
+
+## Discrete color scale: *scale_colour_hue*
+```{r sp_discrete_color_hue3b, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+# Change range of hues used
+sp_c_hue <- sp_c +
+  scale_colour_hue(name='Year', h=c(100, 300))
+print(sp_c_hue)
+```
+
+
+## Discrete color scale: brewer palettes
+
+
+<!-- \includegraphics[scale=0.35]{colorbrewer_names.png} -->
+
+
+
+## Discrete color scale: brewer palette
+```{r sp_discrete_color4, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_c_brewer <- sp_c +
+  scale_color_brewer(name='Year', palette="Dark2")
+print(sp_c_brewer)
+```
+
+
+
+## Discrete color scale: brewer palette
+```{r sp_discrete_color4b, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_c_brewer <- sp_c +
+  scale_color_brewer(name='Year', palette="Set1")
+print(sp_c_brewer)
+```
+
+
+## Discrete color scale: wesanderson palettes
+```{r wesanderson, eval=FALSE, echo=TRUE}
+library(wesanderson)
+```
+
+<!-- \includegraphics[scale=0.5]{wesanderson-color.png} -->
+
+
+Other resources: 
+
+<http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf>
+<http://research.stowers-institute.org/efg/R/Color/Chart/ColorChart.pdf>
+
+
+
+
+## Discrete color scale: wesanderson palettes
+```{r sp_discrete_color_wa2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_c_wanderson <- sp_c +
+  scale_color_manual(name='Year', values=wes_palette(name="Darjeeling1"))
+print(sp_c_wanderson)
+```
+
+## Discrete color scale: *scale_color_grey*
+```{r sp_discrete_color5, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_c_grey <- sp_c +
+  scale_color_grey(name='Year')
+print(sp_c_grey)
+```
+
+
+
+## Discrete color scale: *scale_color_grey*
+```{r sp_discrete_color6, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_c_grey <- sp_c +
+  scale_color_grey(name='Year', start=0.8, end=0.2)
+print(sp_c_grey)
+```
+
+
+## Discrete color scale: manual
+```{r sp_discrete_color2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_c_manual <- sp_color +
+  scale_color_manual(name='Area', values=c("#E69F00", "#56B4E9"))
+print(sp_c_manual)
+```
+
+
+
+
+
+## Color scale: make your own
+A color-blind palette:
+```{r cb_palette, eval=FALSE,  tidy=FALSE, opts.label='fig.medium'}
+cb_palette_black <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442",
+                      "#0072B2", "#D55E00", "#CC79A7", "#000000")
+```
+Or create your own gradient palette function with 2 or more colors:
+```{r Palette_grb, eval=FALSE,  tidy=FALSE, opts.label='fig.medium'}
+## Palette from white-grey to red to black
+Palette_grb <- colorRampPalette(c(colors()[139], # green
+                                  colors()[554], # red
+                                  colors()[153]) # black
+                )
+```
+
+
+## Discrete color scale: manual
+```{r sp_discrete_colorcb, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_color_cb <- sp_c +
+  scale_color_manual(name='Year', values = cb_palette_black)
+print(sp_color_cb)
+```
+
+
+## Discrete color scale: manual
+```{r sp_discrete_colorown, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_color_own <- sp_c +
+  scale_color_manual(name='Year', values = Palette_grb(nYear))
+print(sp_color_own)
+```
+
+
+## Continuous color scale
+```{r sp_continuous_color1, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_cc <- ggplot(df_data, aes(x=Avg_net_temp, y=Avg_net_depth)) +
+  geom_point(alpha=0.8, size=1, aes(colour=Biomass)) + 
+  xlab('Average net temperature (C)') + ylab('Average net depth (m)')
+print(sp_cc)
+```
+
+
+## Continuous color scale: choose color
+```{r sp_continuous_color2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_cc2 <- sp_cc +
+  scale_colour_gradient(low = 'blue', high = 'red')
+print(sp_cc2)
+```
+
+
+## Continuous color scale: divergent scale
+```{r sp_continuous_color3, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_cc_div <- sp_cc +
+  scale_colour_gradient2(midpoint = 100,
+                         low = 'blue', high = 'red', mid = muted('green'))
+print(sp_cc_div)
+```
+
+
+## Continuous color scale: rainbow scale
+```{r sp_continuous_color4, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_cc_own <- sp_cc +
+  scale_color_gradientn(colors = rainbow(5))
+print(sp_cc_own)
+```
+
+
+## Continuous color scale: wesanderson scale
+```{r sp_continuous_color5, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_cc_own <- sp_cc +
+  scale_color_gradientn(colors = wes_palette(n=5,
+                                             name="Rushmore",
+                                             type = 'continuous'))
+print(sp_cc_own)
+```
+
+
+## Continuous color scale: own scale
+```{r sp_continuous_color6, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_cc_own <- sp_cc +
+  scale_color_gradientn(colors = Palette_grb(10))
+print(sp_cc_own)
+```
+
+
+## Continuous color scale: own scale
+```{r sp_continuous_color7, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_cc_own <- sp_cc +
+  scale_color_gradientn(colors = Palette_grb(3))
+print(sp_cc_own)
+```
+
+
+## Time series
+```{r sp_TSplot, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+TSplot <- ggplot(data=df_data, aes(x=Date, y=Biomass)) + 
+  geom_point() + ylim(0,max(df_data$Biomass))
+print(TSplot)
+```
+
+
+## Time series
+```{r sp_TSplot_year, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+TSplot_year <- ggplot(data=df_data, aes(x=Year, y=Biomass)) + 
+  geom_point()
+print(TSplot_year)
+```
+
+
+
+## Time series: summarize
+Summarize the data with the mean, median and quantiles for easy plotting.
+The ddply function from the plyr R package provides an easy way to summarize the data.
+```{r summary_data_year, eval=FALSE,  tidy=FALSE, opts.label='fig.medium'}
+df_summary <- ddply(df_data, c('Year'), summarise,
+                    B_mean=mean(Biomass),
+                    B_median=median(Biomass),
+                    B_sd=sd(Biomass),
+                    B_q025=quantile(Biomass, probs = 0.025),
+                    B_q05=quantile(Biomass, probs = 0.05),
+                    B_q10=quantile(Biomass, probs = 0.10),
+                    B_q50=quantile(Biomass, probs = 0.50),
+                    B_q90=quantile(Biomass, probs = 0.90),
+                    B_q95=quantile(Biomass, probs = 0.95),
+                    B_q975=quantile(Biomass, probs = 0.975))
+```
+
+
+## Time series: summarize
+Summarize the data with the mean, median and quantiles for easy plotting.
+The ddply function from the plyr R package provides an easy way to summarize the data.
+```{r summary_data_year2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+str(df_summary)
+```
+
+## Time series with error bars
+```{r sp_TSplot_i95a, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+TSplot_i95 <- ggplot(data=df_summary, aes(x=Year, y=B_mean)) + 
+  geom_point()
+print(TSplot_i95)
+```
+
+
+## Time series with error bars
+```{r sp_TSplot_i95b, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+TSplot_i95 <- TSplot_i95 +
+  geom_pointrange(aes(ymin = B_q025, ymax = B_q975))
+print(TSplot_i95)
+```
+
+
+
+## Time series with error bars
+```{r sp_TSplot_errori95, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+TSplot_errori95 <- ggplot(data=df_summary, aes(x=Year, y=B_mean)) + 
+  geom_line() + 
+  geom_errorbar(aes(ymin = B_q025, ymax = B_q975), width = 0.2)
+print(TSplot_errori95)
+```
+
+
+
+
+## Time series with error bars: Improvement
+```{r sp_TSplot_i95_bis, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+TSplot_i95 <- ggplot(data=df_summary, aes(x=Year, y=B_mean)) + 
+  geom_point() + 
+  geom_pointrange(aes(ymin = B_q025, ymax = B_q975))
+print(TSplot_i95)
+```
+
+
+## Time series with error bars: Improvement
+```{r sp_TSplot_i95_imp, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+TSplot_i95 <- ggplot(data=df_summary, aes(x=Year, y=B_mean)) + 
+  geom_point() + geom_pointrange(aes(ymin = B_q025, ymax = B_q975)) +
+  ylab('Biomass') +
+  scale_x_continuous(name = 'Year', breaks = seq(2005, 2013, by = 1))
+print(TSplot_i95)
+```
+
+
+## Time series with *geom_ribbon*
+```{r sp_TSplot_ri95, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+TSplot_ri95 <- ggplot(data=df_summary, aes(x=Year, y=B_mean)) + 
+  geom_ribbon(aes(ymin = B_q025, ymax = B_q975), fill = "blue", alpha=0.2) +
+  geom_point() + geom_line() + ylab('Biomass') +
+  scale_x_continuous(name = 'Year', breaks = seq(2005, 2013, by = 1))
+print(TSplot_ri95)
+```
+
+## Time series: x-axis as date
+```{r TSplot_i95d1, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+TSplot <- ggplot(data=df_data, aes(x=Date, y=Biomass)) + 
+  geom_point() + 
+  ylab('Biomass (kg)')
+print(TSplot)
+```
+
+
+## Time series: x-axis as date
+```{r TSplot_i95d4, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+# Months only
+TSplotm <- TSplot +
+  scale_x_date(labels = date_format("%y/%b"), date_breaks="1 year",
+               date_minor_breaks = "1 month") +
+  theme(axis.text.x = element_text(angle=45))
+print(TSplotm)
+```
+
+
+## Time series: x-axis as date
+```{r TSplot_i95d3, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+# Format : Year/month
+TSplotym <- TSplot +
+  scale_x_date(labels = date_format("%Y/%m"))
+print(TSplotym)
+```
+
+
+## Time series: x-axis as date
+```{r TSplot_i95d2, eval=TRUE,  tidy=FALSE,warning=FALSE, opts.label='fig.medium'}
+# Format : Year/month/day
+lmin <- as.Date("2011-1-1"); lmax <- max(df_data$Date)
+TSplotymdl <- TSplot +
+  scale_x_date(labels = date_format("%y/%m/%d"), limits = c(lmin, lmax))
+print(TSplotymdl)
+```
+
+
+## Boxplot
+```{r boxplot_TS, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+boxplot_TS <- ggplot(data=df_data, aes(x=Year, y=Biomass)) + 
+  geom_boxplot()
+print(boxplot_TS)
+```
+
+
+
+## Boxplot with Year as a factor
+```{r boxplot_TSf, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+boxplot_TSf <- ggplot(data=df_data, aes(x=factor(Year), y=Biomass)) + 
+  geom_boxplot() 
+print(boxplot_TSf)
+```
+
+
+## Boxplot with Year and Area as a factor
+```{r boxplot_TSf_AREA, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+boxplot_TS_AREA <- ggplot(data=df_data, aes(x=factor(Year), y=Biomass, 
+                                            colour=AREA)) +
+  geom_boxplot()
+print(boxplot_TS_AREA)
+```
+
+
+
+## Boxplot: x-axis changing label
+```{r boxplot_TSf_AREA_xaxis, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+boxplot_TS_AREA <- boxplot_TS_AREA +
+  scale_x_discrete(name=NULL,
+                   breaks=c("2005", "2009", "2013"),
+                   labels=c("Year-2005", "Year-2009", "Year-2013"))
+print(boxplot_TS_AREA)
+```
+
+
+
+
+## Boxplot (and all other plots): changing label in the legend
+The easiest way to change the label in the legend (i.e. 5AB and 5CD) rename the factor levels before the plot:
+
+```{r renaming_factor, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+df_data$AREA <- factor(df_data$AREA, levels=c("5AB", "5CD"),
+                       labels=c("Northern area", "Southern area"))
+```
+
+This code can also be useful for reordering the factor levels before the plot:
+```{r reordering_factor, eval=FALSE,  tidy=FALSE, opts.label='fig.medium'}
+df_data$AREA <- factor(df_data$AREA, levels=c("5CD", "5AB"),
+                       labels=c("Southern area", "Northern area"))
+```
+
+
+## Boxplot with changed factor label
+```{r boxplot_TSf_AREA_final, eval=TRUE,  tidy=FALSE, opts.label='fig.small'}
+bplot_TS <- ggplot(df_data, aes(x=factor(Year), y=Biomass, colour=AREA)) +
+  geom_boxplot() + 
+  scale_x_discrete(name=NULL,
+                   breaks=c("2005", "2009", "2013"),
+                   labels=c("Year-2005", "Year-2009", "Year-2013")) +
+  scale_color_manual(name='Area', values = cb_palette_black) +
+  theme(legend.position=c(0.2,0.9))
+print(bplot_TS)
+```
+```{r renaming_factor_back, eval=TRUE, echo=FALSE, tidy=FALSE}
+df_data$AREA <- factor(df_data$AREA, labels=c("5AB", "5CD"),
+                       levels=c("Northern area", "Southern area"))
+```
+
+
+## Faceting: *facet_wrap*
+```{r facet_wrap_0, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+hist <- ggplot(data=df_data, aes(x=DURATION_MINUTES, fill=AREA)) +
+  geom_histogram()
+print(hist)
+```
+
+
+## Faceting: *facet_wrap*
+```{r facet_wrap_1, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fw1 <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram(binwidth=1) + facet_wrap(~ AREA)
+print(fw1)
+```
+
+
+## *facet_wrap*: free scales
+```{r facet_wrap_2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fw1_free <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram(binwidth=1) + facet_wrap(~ AREA , scales = 'free')
+print(fw1_free)
+```
+
+
+## *facet_wrap*: free y scale
+```{r facet_wrap_3, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fw1_free_y <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram(binwidth=1) + facet_wrap(~ AREA , scales = 'free_y')
+print(fw1_free_y)
+```
+
+
+## *facet_wrap*: free y scale
+```{r facet_wrap_4, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fw1_col <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram(binwidth=1) + 
+  facet_wrap(~ AREA, ncol = 1, nrow = 2, scales = 'fixed')
+print(fw1_col)
+```
+
+
+## *facet_wrap*: free y scale
+```{r facet_wrap_5, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fw2 <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram(binwidth=1) + facet_wrap(~ AREA + Year_fac)
+print(fw2)
+```
+
+
+## *facet_wrap*: free y scale
+```{r facet_wrap_6, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fw2_2 <- ggplot(data=df_data, aes(x=DURATION_MINUTES)) +
+  geom_histogram(binwidth=1) + facet_wrap( ~ Year_fac + AREA)
+print(fw2_2)
+```
+
+## *facet_grid*: more flexible
+```{r facet_grid_1, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fg1_1 <- ggplot(df_data, aes(x=Avg_net_depth, y=nFish, color=AREA)) + 
+  geom_point(shape=20) + facet_grid(. ~ Year)
+print(fg1_1)
+```
+
+
+## *facet_grid*: change faceting display
+```{r facet_grid_2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fg1_2 <- ggplot(df_data, aes(x=Avg_net_depth, y=nFish, color=AREA)) + 
+  geom_point(shape=20) + facet_grid(Year ~ .)
+print(fg1_2)
+```
+
+
+
+## *facet_grid*: facet with all the data
+```{r facet_grid_3, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fg1_3 <- ggplot(df_data, aes(x=Avg_net_depth, y=nFish, color=AREA)) + 
+  geom_point(shape=20) + facet_grid(Year ~ ., margins = TRUE)
+print(fg1_3)
+```
+
+
+## *facet_grid*: two faceting factors
+```{r facet_grid_4, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fg2_1 <- ggplot(df_data, aes(x=Avg_net_depth, y=nFish)) + 
+  geom_point(shape=20) + facet_grid(~ Year + AREA)
+print(fg2_1)
+```
+
+
+## *facet_grid*: two faceting factors
+```{r facet_grid_5, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fg2_2 <- ggplot(df_data, aes(x=Avg_net_depth, y=nFish)) + 
+  geom_point(shape=20) + facet_grid(AREA ~ Year)
+print(fg2_2)
+```
+
+
+
+
+## *facet_grid*: scales and space free
+```{r facet_grid_6, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fg2_3 <- ggplot(df_data, aes(x=Avg_net_depth, y=nFish)) + 
+  geom_point(shape=20, size=1) +
+  facet_grid(AREA ~ Year, scales='free', space = 'free')
+print(fg2_3)
+```
+
+
+## *facet_grid*: renaming labels
+Replace manually names factor:
+```{r facet_grid_7, eval=FALSE,  tidy=FALSE, opts.label='fig.medium'}
+levels(df_data$AREA) <- c('Northern area', 'Southern area')
+```
+Or write a function:
+```{r facet_grid_8, eval=FALSE,  tidy=FALSE, opts.label='fig.medium'}
+## string is the levels of a factor
+fn_alphabetic_label <- function(string){
+  for ( i in 1:length(string)){
+    string[i] <- letters[i]
+  }
+  return(string) 
+}
+```
+
+
+
+## *facet_grid*: renaming labels
+```{r facet_grid_9, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fg1_3a <- ggplot(df_data, aes(x=Avg_net_depth, y=nFish, color=AREA)) + 
+  geom_point(shape=20, size=1) +
+  facet_grid(Year ~ ., labeller = labeller(Year = fn_alphabetic_label))
+print(fg1_3a)
+```
+
+
+
+
+## *facet_grid*: changing facets
+```{r facet_grid_10, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+fg2_3b <- fg2_2 + 
+  theme(strip.text.x = element_text(size=8, angle=45),
+        strip.text.y = element_text(size=12, face="bold"),
+        strip.background = element_rect(colour="red", fill=NA))
+print(fg2_3b)
+```
+
+
+## Multiple (different) plots
+It can be hard to plot on the same page different plots.
+
+For example, it is not possible to plot on the same page a boxplot, a scatter plot, and a bar plot.
+
+```{r multi_plot, eval=FALSE,  tidy=FALSE, opts.label='fig.medium'}
+source('R/Fun/gg_multiplot.R')
+gg_multiplot(plotlist = list(sp_c_wanderson, boxplot_TS_AREA,
+                             TSplot_i95))
+```
+
+
+## Multiple (different) plots
+```{r multi_plot2, eval=TRUE, echo=FALSE,  tidy=FALSE, opts.label='fig.large'}
+gg_multiplot(plotlist = list(sp_c_wanderson, boxplot_TS_AREA,
+                             TSplot_i95))
+```
+
+
+## Multiple (different) plots
+Choose the layout to 
+```{r multi_plot3, eval=FALSE,  tidy=FALSE, opts.label='fig.large'}
+gg_multiplot(plotlist = list(sp_c_wanderson + ggtitle('(a)'),
+                             boxplot_TS_AREA + ggtitle('(b)'),
+                             TSplot_i95 + ggtitle('(c)')),
+             layout = matrix(c(1,2,3,3), nrow=2, byrow=TRUE))
+```
+
+
+## Multiple (different) plots
+```{r multi_plot4, eval=TRUE, echo=FALSE,  tidy=FALSE, opts.label='fig.large'}
+gg_multiplot(plotlist = list(sp_c_wanderson + ggtitle('(a)'),
+                             boxplot_TS_AREA + ggtitle('(b)'),
+                             TSplot_i95 + ggtitle('(c)')),
+             layout = matrix(c(1,2,3,3), nrow=2, byrow=TRUE))
+```
+
+## Theme
+
+- ggplot2 uses a theme which controls the background, fonts, text size, ...
+- change the theme for the current R session: 
+```{r  eval=FALSE} 
+theme_set(theme_gray())
+```
+- create or update your own theme :
+```{r  eval=FALSE} 
+p + theme(plot.background = element_rect(fill = "darkblue"))
+```
+
+
+
+
+## Theme: background change
+```{r theme_1, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+print(fg2_2 + 
+        theme(plot.background = element_rect(fill = "darkblue")))
+```
+
+
+## Theme: black and white
+```{r theme_2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+print(fg2_2 + theme_bw())
+```
+
+
+## Theme: classic
+```{r theme_3, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+print(fg2_2 + theme_classic())
+```
+
+
+## Theme: minimalist
+```{r theme_4, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+print(fg2_2 +  theme_minimal())
+```
+
+
+
+## Theme: minimalist tufte
+```{r theme_5, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+library(ggthemes)
+print(fg2_2 +  theme_tufte())
+```
+
+
+
+## Theme: the economist
+```{r theme_6, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+library(ggthemes)
+print(fg2_2 + theme_economist())
+```
+
+
+## Theme: make your own
+```{r theme_7, eval=FALSE,  tidy=FALSE, opts.label='fig.medium'}
+theme_update(axis.text = element_text(size = rel(0.8)),
+             axis.ticks = element_line(colour = "black", size=1),
+             axis.line = element_line(),
+             panel.background = element_rect(fill = NA, colour = NA),
+             panel.border = element_rect(fill = NA, colour = NA),
+             panel.grid.major = element_line(colour = "grey90", size = 0.2),
+             panel.grid.minor = element_line(colour = NA, size = 0.5),
+             strip.background = element_rect(fill = "grey80",colour = "grey50"),
+             strip.background = element_rect(fill = "grey80",colour = "grey50"),
+             panel.background = element_rect(fill = "transparent", colour = NA),
+             panel.grid.minor = element_blank(),
+             plot.background = element_rect(fill = "transparent", colour = NA),
+             legend.key = element_rect(colour = "grey80", fill= "grey80"),
+             legend.background = element_rect(colour = 'black', fill = NA),  
+             legend.key = element_rect(colour = NA,fill=NA),
+             legend.key.size = unit(1.1,'line'),
+             legend.title = element_text(size = rel(1), face = 'bold'),
+             legend.text = element_text(size = rel(1)))
+```
+
+
+## Legend position: top, bottom, left, right
+```{r legend_p1, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_legend <- sp_shape_imp2 + theme(legend.position="bottom", 
+                                   legend.box = "horizontal")
+print(sp_legend)
+```
+
+
+## Legend position: bottom left *c(0,0)*, top right *c(1,1)*
+```{r legend_p2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_legend <- sp_shape_imp2 + theme(legend.position=c(0.9,0.6))
+print(sp_legend)
+```
+
+
+## Legend background
+```{r legend_b, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_legend2 <- sp_legend  + 
+  theme(legend.background = element_rect(fill="lightblue",
+                                         size=0.5, linetype="solid", 
+                                         colour ="darkblue"))
+print(sp_legend2)
+```
+
+
+
+## Legend order
+```{r legend_order, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_legend2 <- sp_legend2  + 
+  guides(shape = guide_legend(order=1),
+         color = guide_legend(order=2))
+print(sp_legend2)
+```
+
+
+## Remove legends
+```{r legend_rm, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_legend2 <- sp_legend2  + 
+  theme(legend.position='none')
+print(sp_legend2)
+```
+
+
+## Remove a specific legend
+```{r legend_rm2, eval=TRUE,  tidy=FALSE, opts.label='fig.medium'}
+sp_legend_c <- sp_legend + 
+  guides(color = FALSE)
+print(sp_legend_c)
+```
+
+
+## Saving a plot
+The ggsave function from ggplot2 package allows to automatically save a plot.
+```{r ggsave1, eval=FALSE,  tidy=FALSE, opts.label='fig.medium'}
+sp_legend_c <- sp_legend + 
+  guides(color = FALSE)
+print(sp_legend_c)
+
+ggsave(plot=sp_legend_c, filename = 'sp_legend_c.pdf', path = '~/figure',
+       width = 8, height = 5, units = 'cm')
+```
+
+## Useful R packages which use ggplot2
+
+-	A website which references ggplot2 extension <https://ggplot2-exts.github.io/index.html>
+
+-	**ggfortify** and its autoplot() function allows plotting some popular R packages using a standardized approach.
+Diagnostic plots with Generalized Linear Models (GLM), Plotting Principal Component Analysis ...
+- **ggmcmc** was developed to plot MCMC outputs from OpenBUGS, JAGS or Stan. It provides plots to assess the convergence and general behaviour of MCMC chains.
+- **GGally** regroups R packages which extend ggplot2. The main reason to use GGally is its correlation plots.
+- **latex2exp** allows to replace labels and titles with latex expression in plot.
+

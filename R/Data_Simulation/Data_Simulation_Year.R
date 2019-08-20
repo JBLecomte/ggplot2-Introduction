@@ -48,7 +48,7 @@ df_data$nFish <- nFish
 df_data$Biomass <- Biomass
 
 ## Create a data.frame which summarize the df_data by Year
-df_summary <- ddply(df_data, c('Year'), summarise,
+df_summary <- df_data %>% group_by(Year) %>% summarise(
                     B_mean=mean(Biomass),
                     B_median=median(Biomass),
                     B_sd=sd(Biomass),
@@ -60,3 +60,4 @@ df_summary <- ddply(df_data, c('Year'), summarise,
                     B_q95=quantile(Biomass, probs = 0.95),
                     B_q975=quantile(Biomass, probs = 0.975))
 
+save(df_data, file = 'Data/df_data_survey.RData')

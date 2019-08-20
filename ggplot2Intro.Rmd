@@ -15,6 +15,21 @@ opts_template$set(
   fig.medium = list(fig.width = 8, fig.height = 4.5),
   fig.small = list(fig.width = 8, fig.height = 3)
 )
+library("dplyr")
+library("ggplot2")
+library("scales")
+library("wesanderson")
+source('R/Data_Simulation/Data_Simulation_Year.R')
+
+source('R/Palette/colorblind_palette.R')
+source('R/Palette/custom_palette.R')
+
+### Function to change label in faceted plot
+source('R/Fun/fn_alphabetic_label.R')
+source('R/Fun/fn_TeX_label.R')
+
+### Function to display multiple-ggplots 
+source('R/Fun/gg_multiplot.R')
 ```
 
 
@@ -990,11 +1005,11 @@ ggsave(plot=sp_legend_c, filename = 'sp_legend_c.pdf', path = '~/figure',
 
 ## Useful R packages which use ggplot2
 
--	A website which references ggplot2 extension <https://ggplot2-exts.github.io/index.html>
+-A website which references ggplot2 extension <https://ggplot2-exts.github.io/index.html>
 
--	**ggfortify** and its autoplot() function allows plotting some popular R packages using a standardized approach.
+-**ggfortify** and its autoplot() function allows plotting some popular R packages using a standardized approach.
 Diagnostic plots with Generalized Linear Models (GLM), Plotting Principal Component Analysis ...
-- **ggmcmc** was developed to plot MCMC outputs from OpenBUGS, JAGS or Stan. It provides plots to assess the convergence and general behaviour of MCMC chains.
-- **GGally** regroups R packages which extend ggplot2. The main reason to use GGally is its correlation plots.
-- **latex2exp** allows to replace labels and titles with latex expression in plot.
+-**ggmcmc** was developed to plot MCMC outputs from OpenBUGS, JAGS or Stan. It provides plots to assess the convergence and general behaviour of MCMC chains.
+-**GGally** regroups R packages which extend ggplot2. The main reason to use GGally is its correlation plots.
+-**latex2exp** allows to replace labels and titles with latex expression in plot.
 

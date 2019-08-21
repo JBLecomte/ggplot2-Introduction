@@ -27,8 +27,8 @@ levels(Year_id) <- as.character(1:nYear)
 Year_id <- as.numeric(Year_id)
 
 ### Linear expression of the intensity parameter (Poisson) of the number of fish
-lambda_obs <- exp(1 + Depth_effect*df_data$Avg_net_depth +
-                    Temperature_effect*df_data$Avg_net_temp +
+lambda_obs <- exp(1 + Depth_effect*df_data$Depth +
+                    Temperature_effect*df_data$Temp +
                     AREA_effect[df_data$AREA_num] +
                     Year_effect[Year_id])
 
@@ -46,6 +46,7 @@ for ( i in 1:length(nFish)){
 
 df_data$nFish <- nFish
 df_data$Biomass <- Biomass
+
 
 ## Create a data.frame which summarize the df_data by Year
 df_summary <- df_data %>% group_by(Year) %>% summarise(

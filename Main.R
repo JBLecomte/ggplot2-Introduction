@@ -1,11 +1,6 @@
 ###########################################
 ## Main R script, which runs the analysis
 ###########################################
-rm(list = ls())
-# setwd('Z:\\Projects\\ggplot2-Introduction')
-
-
-# setwd('Z:\\Projects\\SPERA-Geostat')
 
 ## If tex is TRUE, it will generate a tex file and a pdf
 Tex <- TRUE

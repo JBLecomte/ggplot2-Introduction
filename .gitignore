@@ -60,3 +60,4 @@ rsconnect/
 *.pptx
 *.ppt
 *.mdb
+.Rproj.user

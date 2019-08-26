@@ -23,10 +23,7 @@ opts_template$set(
   fig.small = list(fig.width = 8, fig.height = 3)
 )
 
-library("dplyr")
-library("ggplot2")
-library("scales")
-library("wesanderson")
+library("tidyverse")
 
 source('R/Data_Simulation/Data_Simulation_Year.R')
 

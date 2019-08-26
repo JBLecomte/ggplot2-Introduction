@@ -24,6 +24,7 @@ opts_template$set(
 )
 
 library("tidyverse")
+library("scales")
 
 source('R/Data_Simulation/Data_Simulation_Year.R')
 
@@ -106,32 +107,32 @@ print(sp_shape)
 ```
 
 
-<!-- ## Scatter plot with continuous color: Depth and Biomass -->
-<!-- ```{r sp_color_cont, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_color_cont <- ggplot(df_data, aes(x=Depth, y=Biomass, -->
-<!--                                      color=Temp)) + -->
-<!--   geom_point() -->
-<!-- print(sp_color_cont) -->
-<!-- ``` -->
+## Scatter plot with continuous color: Depth and Biomass
+```{r sp_color_cont, eval=TRUE,   opts.label='fig.medium'}
+sp_color_cont <- ggplot(df_data, aes(x=Depth, y=Biomass,
+                                     color=Temp)) +
+  geom_point()
+print(sp_color_cont)
+```
 
 
 
-<!-- ## Scatter plot with size: Depth and Biomass -->
-<!-- ```{r sp_color_size, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_area <- ggplot(df_data, aes(x=Depth, y=Biomass, -->
-<!--                                size=nFish)) + -->
-<!--   geom_point(shape=17) -->
-<!-- print(sp_area) -->
-<!-- ``` -->
+## Scatter plot with size: Depth and Biomass
+```{r sp_color_size, eval=TRUE,   opts.label='fig.medium'}
+sp_area <- ggplot(df_data, aes(x=Depth, y=Biomass,
+                               size=nFish)) +
+  geom_point(shape=17)
+print(sp_area)
+```
 
 
-<!-- ## Improvement of a plot -->
-<!-- ```{r sp_shape2, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_shape <- ggplot(df_data, aes(x=Depth, y=Biomass, -->
-<!--                                 color=AREA, shape=Year_fac)) + -->
-<!--   geom_point() -->
-<!-- print(sp_shape) -->
-<!-- ``` -->
+## Improvement of a plot
+```{r sp_shape2, eval=TRUE,   opts.label='fig.medium'}
+sp_shape <- ggplot(df_data, aes(x=Depth, y=Biomass,
+                                color=AREA, shape=Year_fac)) +
+  geom_point()
+print(sp_shape)
+```
 
 
 ## Improvement of a plot : axes names
@@ -143,34 +144,34 @@ print(sp_shape_imp1)
 ```
 
 
-<!-- ## Improvement of a plot: axes options -->
-<!-- ```{r scale, eval=FALSE,   opts.label='fig.medium'} -->
-<!-- scale_x_continuous(name, breaks, labels, limits, trans) -->
-<!-- scale_y_continuous(name, breaks, labels, limits, trans) -->
-<!-- ``` -->
+## Improvement of a plot: axes options
+```{r scale, eval=FALSE,   opts.label='fig.medium'}
+scale_x_continuous(name, breaks, labels, limits, trans)
+scale_y_continuous(name, breaks, labels, limits, trans)
+```
 
 
-<!-- -    name : x or y axis labels -->
-<!-- -    breaks : to control the breaks in the guide (axis ticks, grid lines,...). -->
-<!-- Among the possible values, there are : -->
-<!-- NULL : hide all breaks -->
-<!-- waiver() : the default break computation a character or numeric vector specifying the breaks to display -->
-<!-- - labels : labels of axis tick marks. Allowed values are : -->
-<!-- NULL for no labels -->
-<!-- waiver() for the default labels -->
-<!-- character vector to be used for break labels -->
-<!-- - limits : a numeric vector specifying x or y axis limits (min, max) -->
-<!-- - trans for axis transformations. Possible values are "log2", "log10" -->
+-    name : x or y axis labels
+-    breaks : to control the breaks in the guide (axis ticks, grid lines,...).
+Among the possible values, there are :
+NULL : hide all breaks
+waiver() : the default break computation a character or numeric vector specifying the breaks to display
+- labels : labels of axis tick marks. Allowed values are :
+NULL for no labels
+waiver() for the default labels
+character vector to be used for break labels
+- limits : a numeric vector specifying x or y axis limits (min, max)
+- trans for axis transformations. Possible values are "log2", "log10"
 
 
 
-<!-- ## Improvement of a plot: axes options -->
-<!-- ```{r sp_shape_imp1x, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_shape_imp1 <- sp_shape_imp1 +  -->
-<!--   scale_x_continuous(name='Average net depth (m)', -->
-<!--                      breaks=seq(-4,7,2), limits=c(-4,7)) -->
-<!-- print(sp_shape_imp1) -->
-<!-- ``` -->
+## Improvement of a plot: axes options
+```{r sp_shape_imp1x, eval=TRUE,   opts.label='fig.medium'}
+sp_shape_imp1 <- sp_shape_imp1 +
+  scale_x_continuous(name='Average net depth (m)',
+                     breaks=seq(-4,7,2), limits=c(-4,7))
+print(sp_shape_imp1)
+```
 
 
 ## Improvement of a plot : legend titles
@@ -200,56 +201,55 @@ print(sp_c)
 ```
 
 
-<!-- ## Discrete color scale : *scale_colour_hue* -->
-<!-- ```{r sp_discrete_color_hue1, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- # Adjust luminosity and chroma -->
-<!-- sp_c_hue <- sp_c + -->
-<!--   scale_colour_hue(name='Year', l=70, c=150) -->
-<!-- print(sp_c_hue) -->
-<!-- ``` -->
+## Discrete color scale : *scale_colour_hue*
+```{r sp_discrete_color_hue1, eval=TRUE,   opts.label='fig.medium'}
+# Adjust luminosity and chroma
+sp_c_hue <- sp_c +
+  scale_colour_hue(name='Year', l=70, c=150)
+print(sp_c_hue)
+```
 
 
-<!-- ## Discrete color scale: *scale_colour_hue* -->
-<!-- ```{r sp_discrete_color_hue2, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- # Adjust luminosity and chroma -->
-<!-- sp_c_hue <- sp_c + -->
-<!--   scale_colour_hue(name='Year', l=10, c=150) -->
-<!-- print(sp_c_hue) -->
-<!-- ``` -->
+## Discrete color scale: *scale_colour_hue*
+```{r sp_discrete_color_hue2, eval=TRUE,   opts.label='fig.medium'}
+# Adjust luminosity and chroma
+sp_c_hue <- sp_c +
+  scale_colour_hue(name='Year', l=10, c=150)
+print(sp_c_hue)
+```
 
 
-<!-- ## Discrete color scale : *scale_colour_hue* -->
-<!-- ```{r sp_discrete_color_hue2b, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- # Adjust luminosity and chroma -->
-<!-- sp_c_hue <- sp_c + -->
-<!--   scale_colour_hue(name='Year', l=70, c=50) -->
-<!-- print(sp_c_hue) -->
-<!-- ``` -->
+## Discrete color scale : *scale_colour_hue*
+```{r sp_discrete_color_hue2b, eval=TRUE,   opts.label='fig.medium'}
+# Adjust luminosity and chroma
+sp_c_hue <- sp_c +
+  scale_colour_hue(name='Year', l=70, c=50)
+print(sp_c_hue)
+```
 
 
-<!-- ## Discrete color scale: *scale_colour_hue* -->
-<!-- ```{r sp_discrete_color_hue3, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- # Change range of hues used -->
-<!-- sp_c_hue <- sp_c + -->
-<!--   scale_colour_hue(name='Year', h=c(0, 90)) -->
-<!-- print(sp_c_hue) -->
-<!-- ``` -->
+## Discrete color scale: *scale_colour_hue*
+```{r sp_discrete_color_hue3, eval=TRUE,   opts.label='fig.medium'}
+# Change range of hues used
+sp_c_hue <- sp_c +
+  scale_colour_hue(name='Year', h=c(0, 90))
+print(sp_c_hue)
+```
 
 
-<!-- ## Discrete color scale: *scale_colour_hue* -->
-<!-- ```{r sp_discrete_color_hue3b, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- # Change range of hues used -->
-<!-- sp_c_hue <- sp_c + -->
-<!--   scale_colour_hue(name='Year', h=c(100, 300)) -->
-<!-- print(sp_c_hue) -->
-<!-- ``` -->
+## Discrete color scale: *scale_colour_hue*
+```{r sp_discrete_color_hue3b, eval=TRUE,   opts.label='fig.medium'}
+# Change range of hues used
+sp_c_hue <- sp_c +
+  scale_colour_hue(name='Year', h=c(100, 300))
+print(sp_c_hue)
+```
 
 
-<!-- ## Discrete color scale: brewer palettes -->
-
-
-<!-- \includegraphics[scale=0.35]{colorbrewer_names.png} -->
-
+## Discrete color scale: brewer palettes
+```{r sp_discrete_color0, eval=TRUE,   opts.label='fig.medium'}
+include_graphics(path = 'figure/colorbrewer_names.png')
+```
 
 
 ## Discrete color scale : brewer palette
@@ -277,55 +277,55 @@ print(sp_c_grey)
 
 
 
-<!-- ## Discrete color scale : *scale_color_grey* -->
-<!-- ```{r sp_discrete_color6, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_c_grey <- sp_c + -->
-<!--   scale_color_grey(name='Year', start=0.8, end=0.2) -->
-<!-- print(sp_c_grey) -->
-<!-- ``` -->
+## Discrete color scale : *scale_color_grey*
+```{r sp_discrete_color6, eval=TRUE,   opts.label='fig.medium'}
+sp_c_grey <- sp_c +
+  scale_color_grey(name='Year', start=0.8, end=0.2)
+print(sp_c_grey)
+```
 
 
-<!-- ## Discrete color scale: manual -->
-<!-- ```{r sp_discrete_color2, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_c_manual <- sp_color + -->
-<!--   scale_color_manual(name='Area', values=c("#E69F00", "#56B4E9")) -->
-<!-- print(sp_c_manual) -->
-<!-- ``` -->
+## Discrete color scale: manual
+```{r sp_discrete_color2, eval=TRUE,   opts.label='fig.medium'}
+sp_c_manual <- sp_color +
+  scale_color_manual(name='Area', values=c("#E69F00", "#56B4E9"))
+print(sp_c_manual)
+```
 
 
 
 
 
-<!-- ## Color scale: make your own -->
-<!-- A color-blind palette: -->
-<!-- ```{r cb_palette, eval=FALSE,   opts.label='fig.medium'} -->
-<!-- cb_palette_black <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", -->
-<!--                       "#0072B2", "#D55E00", "#CC79A7", "#000000") -->
-<!-- ``` -->
-<!-- Or create your own gradient palette function with 2 or more colors: -->
-<!-- ```{r Palette_grb, eval=FALSE,   opts.label='fig.medium'} -->
-<!-- ## Palette from white-grey to red to black -->
-<!-- Palette_grb <- colorRampPalette(c(colors()[139], # green -->
-<!--                                   colors()[554], # red -->
-<!--                                   colors()[153]) # black -->
-<!--                 ) -->
-<!-- ``` -->
+## Color scale: make your own
+A color-blind palette:
+```{r cb_palette, eval=FALSE,   opts.label='fig.medium'}
+cb_palette_black <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442",
+                      "#0072B2", "#D55E00", "#CC79A7", "#000000")
+```
+Or create your own gradient palette function with 2 or more colors:
+```{r Palette_grb, eval=FALSE,   opts.label='fig.medium'}
+## Palette from white-grey to red to black
+Palette_grb <- colorRampPalette(c(colors()[139], # green
+                                  colors()[554], # red
+                                  colors()[153]) # black
+                )
+```
 
 
-<!-- ## Discrete color scale: manual -->
-<!-- ```{r sp_discrete_colorcb, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_color_cb <- sp_c + -->
-<!--   scale_color_manual(name='Year', values = cb_palette_black) -->
-<!-- print(sp_color_cb) -->
-<!-- ``` -->
+## Discrete color scale: manual
+```{r sp_discrete_colorcb, eval=TRUE,   opts.label='fig.medium'}
+sp_color_cb <- sp_c +
+  scale_color_manual(name='Year', values = cb_palette_black)
+print(sp_color_cb)
+```
 
 
-<!-- ## Discrete color scale: manual -->
-<!-- ```{r sp_discrete_colorown, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_color_own <- sp_c + -->
-<!--   scale_color_manual(name='Year', values = Palette_grb(nYear)) -->
-<!-- print(sp_color_own) -->
-<!-- ``` -->
+## Discrete color scale: manual
+```{r sp_discrete_colorown, eval=TRUE,   opts.label='fig.medium'}
+sp_color_own <- sp_c +
+  scale_color_manual(name='Year', values = Palette_grb(nYear))
+print(sp_color_own)
+```
 
 
 ## Continuous color scale
@@ -345,21 +345,21 @@ print(sp_cc2)
 ```
 
 
-<!-- ## Continuous color scale: divergent scale -->
-<!-- ```{r sp_continuous_color3, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_cc_div <- sp_cc + -->
-<!--   scale_colour_gradient2(midpoint = 100, -->
-<!--                          low = 'blue', high = 'red', mid = muted('green')) -->
-<!-- print(sp_cc_div) -->
-<!-- ``` -->
+## Continuous color scale: divergent scale
+```{r sp_continuous_color3, eval=TRUE,   opts.label='fig.medium'}
+sp_cc_div <- sp_cc +
+  scale_colour_gradient2(midpoint = 100,
+                         low = 'blue', high = 'red', mid = muted('green'))
+print(sp_cc_div)
+```
 
 
-<!-- ## Continuous color scale: rainbow scale -->
-<!-- ```{r sp_continuous_color4, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_cc_own <- sp_cc + -->
-<!--   scale_color_gradientn(colors = rainbow(5)) -->
-<!-- print(sp_cc_own) -->
-<!-- ``` -->
+## Continuous color scale: rainbow scale
+```{r sp_continuous_color4, eval=TRUE,   opts.label='fig.medium'}
+sp_cc_own <- sp_cc +
+  scale_color_gradientn(colors = rainbow(5))
+print(sp_cc_own)
+```
 
 
 <!-- ## Continuous color scale: wesanderson scale -->
@@ -372,28 +372,28 @@ print(sp_cc2)
 <!-- ``` -->
 
 
-<!-- ## Continuous color scale: own scale -->
-<!-- ```{r sp_continuous_color6, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_cc_own <- sp_cc + -->
-<!--   scale_color_gradientn(colors = Palette_grb(10)) -->
-<!-- print(sp_cc_own) -->
-<!-- ``` -->
+## Continuous color scale: own scale
+```{r sp_continuous_color6, eval=TRUE,   opts.label='fig.medium'}
+sp_cc_own <- sp_cc +
+  scale_color_gradientn(colors = Palette_grb(10))
+print(sp_cc_own)
+```
 
 
-<!-- ## Continuous color scale: own scale -->
-<!-- ```{r sp_continuous_color7, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_cc_own <- sp_cc + -->
-<!--   scale_color_gradientn(colors = Palette_grb(3)) -->
-<!-- print(sp_cc_own) -->
-<!-- ``` -->
+## Continuous color scale: own scale
+```{r sp_continuous_color7, eval=TRUE,   opts.label='fig.medium'}
+sp_cc_own <- sp_cc +
+  scale_color_gradientn(colors = Palette_grb(3))
+print(sp_cc_own)
+```
 
 
-<!-- ## Time series -->
-<!-- ```{r sp_TSplot, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- TSplot <- ggplot(data=df_data, aes(x=Date, y=Biomass)) +  -->
-<!--   geom_point() + ylim(0,max(df_data$Biomass)) -->
-<!-- print(TSplot) -->
-<!-- ``` -->
+## Time series
+```{r sp_TSplot, eval=TRUE,   opts.label='fig.medium'}
+TSplot <- ggplot(data=df_data, aes(x=Date, y=Biomass)) +
+  geom_point() + ylim(0,max(df_data$Biomass))
+print(TSplot)
+```
 
 
 ## Time series
@@ -447,24 +447,24 @@ print(TSplot_i95)
 
 
 
-<!-- ## Time series with 95% intervals -->
-<!-- ```{r sp_TSplot_errori95, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- TSplot_errori95 <- ggplot(data=df_summary, aes(x=Year, y=B_mean)) +  -->
-<!--   geom_line() +  -->
-<!--   geom_errorbar(aes(ymin = B_q025, ymax = B_q975), width = 0.2) -->
-<!-- print(TSplot_errori95) -->
-<!-- ``` -->
+## Time series with 95% intervals
+```{r sp_TSplot_errori95, eval=TRUE,   opts.label='fig.medium'}
+TSplot_errori95 <- ggplot(data=df_summary, aes(x=Year, y=B_mean)) +
+  geom_line() +
+  geom_errorbar(aes(ymin = B_q025, ymax = B_q975), width = 0.2)
+print(TSplot_errori95)
+```
 
 
 
 
-<!-- ## Time series with error bars: Improvement -->
-<!-- ```{r sp_TSplot_i95_bis, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- TSplot_i95 <- ggplot(data=df_summary, aes(x=Year, y=B_mean)) +  -->
-<!--   geom_point() +  -->
-<!--   geom_pointrange(aes(ymin = B_q025, ymax = B_q975)) -->
-<!-- print(TSplot_i95) -->
-<!-- ``` -->
+## Time series with error bars: Improvement
+```{r sp_TSplot_i95_bis, eval=TRUE,   opts.label='fig.medium'}
+TSplot_i95 <- ggplot(data=df_summary, aes(x=Year, y=B_mean)) +
+  geom_point() +
+  geom_pointrange(aes(ymin = B_q025, ymax = B_q975))
+print(TSplot_i95)
+```
 
 
 ## Time series : improvement
@@ -477,52 +477,52 @@ print(TSplot_i95)
 ```
 
 
-<!-- ## Time series with *geom_ribbon* -->
-<!-- ```{r sp_TSplot_ri95, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- TSplot_ri95 <- ggplot(data=df_summary, aes(x=Year, y=B_mean)) +  -->
-<!--   geom_ribbon(aes(ymin = B_q025, ymax = B_q975), fill = "blue", alpha=0.2) + -->
-<!--   geom_point() + geom_line() + ylab('Biomass') + -->
-<!--   scale_x_continuous(name = 'Year', breaks = seq(2005, 2013, by = 1)) -->
-<!-- print(TSplot_ri95) -->
-<!-- ``` -->
+## Time series with *geom_ribbon*
+```{r sp_TSplot_ri95, eval=TRUE,   opts.label='fig.medium'}
+TSplot_ri95 <- ggplot(data=df_summary, aes(x=Year, y=B_mean)) +
+  geom_ribbon(aes(ymin = B_q025, ymax = B_q975), fill = "blue", alpha=0.2) +
+  geom_point() + geom_line() + ylab('Biomass') +
+  scale_x_continuous(name = 'Year', breaks = seq(2005, 2013, by = 1))
+print(TSplot_ri95)
+```
 
-<!-- ## Time series: x-axis as date -->
-<!-- ```{r TSplot_i95d1, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- TSplot <- ggplot(data=df_data, aes(x=Date, y=Biomass)) +  -->
-<!--   geom_point() +  -->
-<!--   ylab('Biomass (kg)') -->
-<!-- print(TSplot) -->
-<!-- ``` -->
-
-
-<!-- ## Time series: x-axis as date -->
-<!-- ```{r TSplot_i95d4, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- # Months only -->
-<!-- TSplotm <- TSplot + -->
-<!--   scale_x_date(labels = date_format("%y/%b"), date_breaks="1 year", -->
-<!--                date_minor_breaks = "1 month") + -->
-<!--   theme(axis.text.x = element_text(angle=45)) -->
-<!-- print(TSplotm) -->
-<!-- ``` -->
+## Time series: x-axis as date
+```{r TSplot_i95d1, eval=TRUE,   opts.label='fig.medium'}
+TSplot <- ggplot(data=df_data, aes(x=Date, y=Biomass)) +
+  geom_point() +
+  ylab('Biomass (kg)')
+print(TSplot)
+```
 
 
-<!-- ## Time series: x-axis as date -->
-<!-- ```{r TSplot_i95d3, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- # Format : Year/month -->
-<!-- TSplotym <- TSplot + -->
-<!--   scale_x_date(labels = date_format("%Y/%m")) -->
-<!-- print(TSplotym) -->
-<!-- ``` -->
+## Time series: x-axis as date
+```{r TSplot_i95d4, eval=TRUE,   opts.label='fig.medium'}
+# Months only
+TSplotm <- TSplot +
+  scale_x_date(labels = date_format("%y/%b"), date_breaks="1 year",
+               date_minor_breaks = "1 month") +
+  theme(axis.text.x = element_text(angle=45))
+print(TSplotm)
+```
 
 
-<!-- ## Time series: x-axis as date -->
-<!-- ```{r TSplot_i95d2, eval=TRUE,  warning=FALSE, opts.label='fig.medium'} -->
-<!-- # Format : Year/month/day -->
-<!-- lmin <- as.Date("2011-1-1"); lmax <- max(df_data$Date) -->
-<!-- TSplotymdl <- TSplot + -->
-<!--   scale_x_date(labels = date_format("%y/%m/%d"), limits = c(lmin, lmax)) -->
-<!-- print(TSplotymdl) -->
-<!-- ``` -->
+## Time series: x-axis as date
+```{r TSplot_i95d3, eval=TRUE,   opts.label='fig.medium'}
+# Format : Year/month
+TSplotym <- TSplot +
+  scale_x_date(labels = date_format("%Y/%m"))
+print(TSplotym)
+```
+
+
+## Time series: x-axis as date
+```{r TSplot_i95d2, eval=TRUE,  warning=FALSE, opts.label='fig.medium'}
+# Format : Year/month/day
+lmin <- as.Date("2011-1-1"); lmax <- max(df_data$Date)
+TSplotymdl <- TSplot +
+  scale_x_date(labels = date_format("%y/%m/%d"), limits = c(lmin, lmax))
+print(TSplotymdl)
+```
 
 
 ## Boxplot
@@ -552,43 +552,43 @@ print(boxplot_TS_AREA)
 
 
 
-<!-- ## Boxplot: x-axis changing label -->
-<!-- ```{r boxplot_TSf_AREA_xaxis, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- boxplot_TS_AREA <- boxplot_TS_AREA + -->
-<!--   scale_x_discrete(name=NULL, -->
-<!--                    breaks=c("2005", "2009", "2013"), -->
-<!--                    labels=c("Year-2005", "Year-2009", "Year-2013")) -->
-<!-- print(boxplot_TS_AREA) -->
-<!-- ``` -->
+## Boxplot: x-axis changing label
+```{r boxplot_TSf_AREA_xaxis, eval=TRUE,   opts.label='fig.medium'}
+boxplot_TS_AREA <- boxplot_TS_AREA +
+  scale_x_discrete(name=NULL,
+                   breaks=c("2005", "2009", "2013"),
+                   labels=c("Year-2005", "Year-2009", "Year-2013"))
+print(boxplot_TS_AREA)
+```
 
 
 
 
-<!-- ## Boxplot (and all other plots): changing label in the legend -->
-<!-- The easiest way to change the label in the legend (i.e. 5AB and 5CD) rename the factor levels before the plot: -->
+## Boxplot (and all other plots): changing label in the legend
+The easiest way to change the label in the legend (i.e. 5AB and 5CD) rename the factor levels before the plot:
 
-<!-- ```{r renaming_factor, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- df_data$AREA <- factor(df_data$AREA, levels=c("5AB", "5CD"), -->
-<!--                        labels=c("Northern area", "Southern area")) -->
-<!-- ``` -->
+```{r renaming_factor, eval=TRUE,   opts.label='fig.medium'}
+df_data$AREA <- factor(df_data$AREA, levels=c("5AB", "5CD"),
+                       labels=c("Northern area", "Southern area"))
+```
 
-<!-- This code can also be useful for reordering the factor levels before the plot: -->
-<!-- ```{r reordering_factor, eval=FALSE,   opts.label='fig.medium'} -->
-<!-- df_data$AREA <- factor(df_data$AREA, levels=c("5CD", "5AB"), -->
-<!--                        labels=c("Southern area", "Northern area")) -->
-<!-- ``` -->
+This code can also be useful for reordering the factor levels before the plot:
+```{r reordering_factor, eval=FALSE,   opts.label='fig.medium'}
+df_data$AREA <- factor(df_data$AREA, levels=c("5CD", "5AB"),
+                       labels=c("Southern area", "Northern area"))
+```
 
 
-<!-- ## Boxplot with changed factor label -->
-<!-- ```{r boxplot_TSf_AREA_final, eval=TRUE,   opts.label='fig.small'} -->
-<!-- bplot_TS <- ggplot(df_data, aes(x=factor(Year), y=Biomass, colour=AREA)) + -->
-<!--   geom_boxplot() -->
-<!-- print(bplot_TS) -->
-<!-- ``` -->
-<!-- ```{r renaming_factor_back, eval=TRUE, echo=FALSE, tidy=FALSE} -->
-<!-- df_data$AREA <- factor(df_data$AREA, labels=c("5AB", "5CD"), -->
-<!--                        levels=c("Northern area", "Southern area")) -->
-<!-- ``` -->
+## Boxplot with changed factor label
+```{r boxplot_TSf_AREA_final, eval=TRUE,   opts.label='fig.small'}
+bplot_TS <- ggplot(df_data, aes(x=factor(Year), y=Biomass, colour=AREA)) +
+  geom_boxplot()
+print(bplot_TS)
+```
+```{r renaming_factor_back, eval=TRUE, echo=FALSE, tidy=FALSE}
+df_data$AREA <- factor(df_data$AREA, labels=c("5AB", "5CD"),
+                       levels=c("Northern area", "Southern area"))
+```
 
 
 ## Faceting: *facet_grid*
@@ -636,7 +636,7 @@ print(fw1)
 <!-- ## *facet_wrap*: free y scale -->
 <!-- ```{r facet_wrap_4, eval=TRUE,   opts.label='fig.medium'} -->
 <!-- fw1_col <- ggplot(data=df_data, aes(x=Duration)) + -->
-<!--   geom_histogram(binwidth=1) +  -->
+<!--   geom_histogram(binwidth=1) + -->
 <!--   facet_wrap(~ AREA, ncol = 1, nrow = 2, scales = 'fixed') -->
 <!-- print(fw1_col) -->
 <!-- ``` -->
@@ -661,133 +661,125 @@ fw2_2 <- ggplot(data=df_data, aes(x=Duration)) +
 print(fw2_2)
 ```
 
-<!-- ## *facet_grid*: more flexible -->
-<!-- ```{r facet_grid_1, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- fg1_1 <- ggplot(df_data, aes(x=Depth, y=nFish, color=AREA)) +  -->
-<!--   geom_point(shape=20) + facet_grid(. ~ Year) -->
-<!-- print(fg1_1) -->
-<!-- ``` -->
+## *facet_grid*: more flexible
+```{r facet_grid_2a, eval=TRUE,   opts.label='fig.medium'}
+fg1_1 <- ggplot(df_data, aes(x=Depth, y=nFish, color=AREA)) +
+  geom_point(shape=20) + facet_grid(. ~ Year)
+print(fg1_1)
+```
 
 
-<!-- ## *facet_grid*: change faceting display -->
-<!-- ```{r facet_grid_2, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- fg1_2 <- ggplot(df_data, aes(x=Depth, y=nFish, color=AREA)) +  -->
-<!--   geom_point(shape=20) + facet_grid(Year ~ .) -->
-<!-- print(fg1_2) -->
-<!-- ``` -->
+## *facet_grid*: change faceting display
+```{r facet_grid_2b, eval=TRUE,   opts.label='fig.medium'}
+fg1_2 <- ggplot(df_data, aes(x=Depth, y=nFish, color=AREA)) +
+  geom_point(shape=20) + facet_grid(Year ~ .)
+print(fg1_2)
+```
+
+## *facet_grid*: facet with all the data
+```{r facet_grid_3, eval=TRUE,   opts.label='fig.medium'}
+fg1_3 <- ggplot(df_data, aes(x=Depth, y=nFish, color=AREA)) +
+  geom_point(shape=20) + facet_grid(Year ~ ., margins = TRUE)
+print(fg1_3)
+```
 
 
-
-<!-- ## *facet_grid*: facet with all the data -->
-<!-- ```{r facet_grid_3, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- fg1_3 <- ggplot(df_data, aes(x=Depth, y=nFish, color=AREA)) +  -->
-<!--   geom_point(shape=20) + facet_grid(Year ~ ., margins = TRUE) -->
-<!-- print(fg1_3) -->
-<!-- ``` -->
-
-
-<!-- ## *facet_grid*: two faceting factors -->
-<!-- ```{r facet_grid_4, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- fg2_1 <- ggplot(df_data, aes(x=Depth, y=nFish)) +  -->
-<!--   geom_point(shape=20) + facet_grid(~ Year + AREA) -->
-<!-- print(fg2_1) -->
-<!-- ``` -->
+## *facet_grid*: two faceting factors
+```{r facet_grid_4, eval=TRUE,   opts.label='fig.medium'}
+fg2_1 <- ggplot(df_data, aes(x=Depth, y=nFish)) +
+  geom_point(shape=20) + facet_grid(~ Year + AREA)
+print(fg2_1)
+```
 
 
-<!-- ## *facet_grid*: two faceting factors -->
-<!-- ```{r facet_grid_5, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- fg2_2 <- ggplot(df_data, aes(x=Depth, y=nFish)) +  -->
-<!--   geom_point(shape=20) + facet_grid(AREA ~ Year) -->
-<!-- print(fg2_2) -->
-<!-- ``` -->
+## *facet_grid*: two faceting factors
+```{r facet_grid_5, eval=TRUE,   opts.label='fig.medium'}
+fg2_2 <- ggplot(df_data, aes(x=Depth, y=nFish)) +
+  geom_point(shape=20) + facet_grid(AREA ~ Year)
+print(fg2_2)
+```
 
 
+## *facet_grid*: scales and space free
+```{r facet_grid_6, eval=TRUE,   opts.label='fig.medium'}
+fg2_3 <- ggplot(df_data, aes(x=Depth, y=nFish)) +
+  geom_point(shape=20, ) +
+  facet_grid(AREA ~ Year, scales='free', space = 'free')
+print(fg2_3)
+```
+
+## *facet_grid*: renaming labels
+Replace manually names factor:
+```{r facet_grid_7, eval=FALSE,   opts.label='fig.medium'}
+levels(df_data$AREA) <- c('Northern area', 'Southern area')
+```
+Or write a function:
+```{r facet_grid_8, eval=FALSE,   opts.label='fig.medium'}
+## string is the levels of a factor
+fn_alphabetic_label <- function(string){
+  for ( i in 1:length(string)){
+    string[i] <- letters[i]
+  }
+  return(string)
+}
+```
 
 
-<!-- ## *facet_grid*: scales and space free -->
-<!-- ```{r facet_grid_6, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- fg2_3 <- ggplot(df_data, aes(x=Depth, y=nFish)) +  -->
-<!--   geom_point(shape=20, ) + -->
-<!--   facet_grid(AREA ~ Year, scales='free', space = 'free') -->
-<!-- print(fg2_3) -->
-<!-- ``` -->
+## *facet_grid*: renaming labels
+```{r facet_grid_9, eval=TRUE,   opts.label='fig.medium'}
+fg1_3a <- ggplot(df_data, aes(x=Depth, y=nFish, color=AREA)) +
+  geom_point(shape=20, ) +
+  facet_grid(Year ~ ., labeller = labeller(Year = fn_alphabetic_label))
+print(fg1_3a)
+```
 
 
-<!-- ## *facet_grid*: renaming labels -->
-<!-- Replace manually names factor: -->
-<!-- ```{r facet_grid_7, eval=FALSE,   opts.label='fig.medium'} -->
-<!-- levels(df_data$AREA) <- c('Northern area', 'Southern area') -->
-<!-- ``` -->
-<!-- Or write a function: -->
-<!-- ```{r facet_grid_8, eval=FALSE,   opts.label='fig.medium'} -->
-<!-- ## string is the levels of a factor -->
-<!-- fn_alphabetic_label <- function(string){ -->
-<!--   for ( i in 1:length(string)){ -->
-<!--     string[i] <- letters[i] -->
-<!--   } -->
-<!--   return(string)  -->
-<!-- } -->
-<!-- ``` -->
+## *facet_grid*: changing facets
+```{r facet_grid_10, eval=TRUE,   opts.label='fig.medium', warning = FALSE}
+fg2_3b <- fg2_2 +
+  theme(strip.text.x = element_text(size=8, angle=45),
+        strip.text.y = element_text(2, face="bold"),
+        strip.background = element_rect(colour="red", fill=NA))
+print(fg2_3b)
+```
 
 
+## Multiple (different) plots
+It can be hard to plot on the same page different plots.
 
-<!-- ## *facet_grid*: renaming labels -->
-<!-- ```{r facet_grid_9, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- fg1_3a <- ggplot(df_data, aes(x=Depth, y=nFish, color=AREA)) +  -->
-<!--   geom_point(shape=20, ) + -->
-<!--   facet_grid(Year ~ ., labeller = labeller(Year = fn_alphabetic_label)) -->
-<!-- print(fg1_3a) -->
-<!-- ``` -->
+For example, it is not possible to plot on the same page a boxplot, a scatter plot, and a bar plot.
 
-
-
-
-<!-- ## *facet_grid*: changing facets -->
-<!-- ```{r facet_grid_10, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- fg2_3b <- fg2_2 +  -->
-<!--   theme(strip.text.x = element_text(size=8, angle=45), -->
-<!--         strip.text.y = element_text(2, face="bold"), -->
-<!--         strip.background = element_rect(colour="red", fill=NA)) -->
-<!-- print(fg2_3b) -->
-<!-- ``` -->
+```{r multi_plot, eval=FALSE,   opts.label='fig.medium'}
+source('R/Fun/gg_multiplot.R')
+gg_multiplot(plotlist = list(sp_color_cb, boxplot_TS_AREA,
+                             TSplot_i95))
+```
 
 
-<!-- ## Multiple (different) plots -->
-<!-- It can be hard to plot on the same page different plots. -->
-
-<!-- For example, it is not possible to plot on the same page a boxplot, a scatter plot, and a bar plot. -->
-
-<!-- ```{r multi_plot, eval=FALSE,   opts.label='fig.medium'} -->
-<!-- source('R/Fun/gg_multiplot.R') -->
-<!-- gg_multiplot(plotlist = list(sp_c_wanderson, boxplot_TS_AREA, -->
-<!--                              TSplot_i95)) -->
-<!-- ``` -->
+## Multiple (different) plots
+```{r multi_plot2, eval=TRUE, echo=FALSE,   opts.label='fig.large'}
+gg_multiplot(plotlist = list(sp_color_cb, boxplot_TS_AREA,
+                             TSplot_i95))
+```
 
 
-<!-- ## Multiple (different) plots -->
-<!-- ```{r multi_plot2, eval=TRUE, echo=FALSE,   opts.label='fig.large'} -->
-<!-- gg_multiplot(plotlist = list(sp_c_wanderson, boxplot_TS_AREA, -->
-<!--                              TSplot_i95)) -->
-<!-- ``` -->
+## Multiple (different) plots
+Choose the layout to
+```{r multi_plot3, eval=FALSE,   opts.label='fig.large'}
+gg_multiplot(plotlist = list(sp_color_cb + ggtitle('(a)'),
+                             boxplot_TS_AREA + ggtitle('(b)'),
+                             TSplot_i95 + ggtitle('(c)')),
+             layout = matrix(c(1,2,3,3), nrow=2, byrow=TRUE))
+```
 
 
-<!-- ## Multiple (different) plots -->
-<!-- Choose the layout to  -->
-<!-- ```{r multi_plot3, eval=FALSE,   opts.label='fig.large'} -->
-<!-- gg_multiplot(plotlist = list(sp_c_wanderson + ggtitle('(a)'), -->
-<!--                              boxplot_TS_AREA + ggtitle('(b)'), -->
-<!--                              TSplot_i95 + ggtitle('(c)')), -->
-<!--              layout = matrix(c(1,2,3,3), nrow=2, byrow=TRUE)) -->
-<!-- ``` -->
-
-
-<!-- ## Multiple (different) plots -->
-<!-- ```{r multi_plot4, eval=TRUE, echo=FALSE,   opts.label='fig.large'} -->
-<!-- gg_multiplot(plotlist = list(sp_c_wanderson + ggtitle('(a)'), -->
-<!--                              boxplot_TS_AREA + ggtitle('(b)'), -->
-<!--                              TSplot_i95 + ggtitle('(c)')), -->
-<!--              layout = matrix(c(1,2,3,3), nrow=2, byrow=TRUE)) -->
-<!-- ``` -->
+## Multiple (different) plots
+```{r multi_plot4, eval=TRUE, echo=FALSE,   opts.label='fig.large'}
+gg_multiplot(plotlist = list(sp_color_cb + ggtitle('(a)'),
+                             boxplot_TS_AREA + ggtitle('(b)'),
+                             TSplot_i95 + ggtitle('(c)')),
+             layout = matrix(c(1,2,3,3), nrow=2, byrow=TRUE))
+```
 
 ## Theme
 
@@ -802,11 +794,11 @@ p + theme(plot.background = element_rect(fill = "darkblue"))
 ```
 
 
-<!-- ## Theme: background change -->
-<!-- ```{r theme_1, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- print(fw2 +  -->
-<!--         theme(plot.background = element_rect(fill = "darkblue"))) -->
-<!-- ``` -->
+## Theme: background change
+```{r theme_1, eval=TRUE,   opts.label='fig.medium'}
+print(fw2 +
+        theme(plot.background = element_rect(fill = "darkblue")))
+```
 
 
 ## Theme: black and white
@@ -821,100 +813,100 @@ print(fw2 + theme_classic())
 ```
 
 
-<!-- ## Theme: minimalist -->
-<!-- ```{r theme_4, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- print(fw2 +  theme_minimal()) -->
-<!-- ``` -->
+## Theme: minimalist
+```{r theme_4, eval=TRUE,   opts.label='fig.medium'}
+print(fw2 +  theme_minimal())
+```
 
 
 
-<!-- ## Theme: minimalist tufte -->
-<!-- ```{r theme_5, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- library(ggthemes) -->
-<!-- print(fw2 +  theme_tufte()) -->
-<!-- ``` -->
+## Theme: minimalist tufte
+```{r theme_5, eval=TRUE,   opts.label='fig.medium'}
+library(ggthemes)
+print(fw2 +  theme_tufte())
+```
 
 
 
-<!-- ## Theme: the economist -->
-<!-- ```{r theme_6, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- library(ggthemes) -->
-<!-- print(fw2 + theme_economist()) -->
-<!-- ``` -->
+## Theme: the economist
+```{r theme_6, eval=TRUE,   opts.label='fig.medium'}
+library(ggthemes)
+print(fw2 + theme_economist())
+```
 
 
-<!-- ## Theme: make your own -->
-<!-- ```{r theme_7, eval=FALSE,   opts.label='fig.medium'} -->
-<!-- theme_update(axis.text = element_text(size = rel(0.8)), -->
-<!--              axis.ticks = element_line(colour = "black", ), -->
-<!--              axis.line = element_line(), -->
-<!--              panel.background = element_rect(fill = NA, colour = NA), -->
-<!--              panel.border = element_rect(fill = NA, colour = NA), -->
-<!--              panel.grid.major = element_line(colour = "grey90", size = 0.2), -->
-<!--              panel.grid.minor = element_line(colour = NA, size = 0.5), -->
-<!--              strip.background = element_rect(fill = "grey80",colour = "grey50"), -->
-<!--              strip.background = element_rect(fill = "grey80",colour = "grey50"), -->
-<!--              panel.background = element_rect(fill = "transparent", colour = NA), -->
-<!--              panel.grid.minor = element_blank(), -->
-<!--              plot.background = element_rect(fill = "transparent", colour = NA), -->
-<!--              legend.key = element_rect(colour = "grey80", fill= "grey80"), -->
-<!--              legend.background = element_rect(colour = 'black', fill = NA),   -->
-<!--              legend.key = element_rect(colour = NA,fill=NA), -->
-<!--              legend.key.size = unit(1.1,'line'), -->
-<!--              legend.title = element_text(size = rel(1), face = 'bold'), -->
-<!--              legend.text = element_text(size = rel(1))) -->
-<!-- ``` -->
+## Theme: make your own
+```{r theme_7, eval=FALSE,   opts.label='fig.medium'}
+theme_update(axis.text = element_text(size = rel(0.8)),
+             axis.ticks = element_line(colour = "black", ),
+             axis.line = element_line(),
+             panel.background = element_rect(fill = NA, colour = NA),
+             panel.border = element_rect(fill = NA, colour = NA),
+             panel.grid.major = element_line(colour = "grey90", size = 0.2),
+             panel.grid.minor = element_line(colour = NA, size = 0.5),
+             strip.background = element_rect(fill = "grey80",colour = "grey50"),
+             strip.background = element_rect(fill = "grey80",colour = "grey50"),
+             panel.background = element_rect(fill = "transparent", colour = NA),
+             panel.grid.minor = element_blank(),
+             plot.background = element_rect(fill = "transparent", colour = NA),
+             legend.key = element_rect(colour = "grey80", fill= "grey80"),
+             legend.background = element_rect(colour = 'black', fill = NA),
+             legend.key = element_rect(colour = NA,fill=NA),
+             legend.key.size = unit(1.1,'line'),
+             legend.title = element_text(size = rel(1), face = 'bold'),
+             legend.text = element_text(size = rel(1)))
+```
 
 
-<!-- ## Legend position: top, bottom, left, right -->
-<!-- ```{r legend_p1, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_legend <- sp_shape_imp2 + theme(legend.position="bottom",  -->
-<!--                                    legend.box = "horizontal") -->
-<!-- print(sp_legend) -->
-<!-- ``` -->
+## Legend position: top, bottom, left, right
+```{r legend_p1, eval=TRUE,   opts.label='fig.medium'}
+sp_legend <- sp_shape_imp2 + theme(legend.position="bottom",
+                                   legend.box = "horizontal")
+print(sp_legend)
+```
 
 
-<!-- ## Legend position: bottom left *c(0,0)*, top right *c(1,1)* -->
-<!-- ```{r legend_p2, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_legend <- sp_shape_imp2 + theme(legend.position=c(0.9,0.6)) -->
-<!-- print(sp_legend) -->
-<!-- ``` -->
+## Legend position: bottom left *c(0,0)*, top right *c(1,1)*
+```{r legend_p2, eval=TRUE,   opts.label='fig.medium'}
+sp_legend <- sp_shape_imp2 + theme(legend.position=c(0.9,0.6))
+print(sp_legend)
+```
 
 
-<!-- ## Legend background -->
-<!-- ```{r legend_b, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_legend2 <- sp_legend  +  -->
-<!--   theme(legend.background = element_rect(fill="lightblue", -->
-<!--                                          size=0.5, linetype="solid",  -->
-<!--                                          colour ="darkblue")) -->
-<!-- print(sp_legend2) -->
-<!-- ``` -->
+## Legend background
+```{r legend_b, eval=TRUE,   opts.label='fig.medium'}
+sp_legend2 <- sp_legend  +
+  theme(legend.background = element_rect(fill="lightblue",
+                                         size=0.5, linetype="solid",
+                                         colour ="darkblue"))
+print(sp_legend2)
+```
 
 
 
-<!-- ## Legend order -->
-<!-- ```{r legend_order, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_legend2 <- sp_legend2  +  -->
-<!--   guides(shape = guide_legend(order=1), -->
-<!--          color = guide_legend(order=2)) -->
-<!-- print(sp_legend2) -->
-<!-- ``` -->
+## Legend order
+```{r legend_order, eval=TRUE,   opts.label='fig.medium'}
+sp_legend2 <- sp_legend2  +
+  guides(shape = guide_legend(order=1),
+         color = guide_legend(order=2))
+print(sp_legend2)
+```
 
 
-<!-- ## Remove legends -->
-<!-- ```{r legend_rm, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_legend2 <- sp_legend2  +  -->
-<!--   theme(legend.position='none') -->
-<!-- print(sp_legend2) -->
-<!-- ``` -->
+## Remove legends
+```{r legend_rm, eval=TRUE,   opts.label='fig.medium'}
+sp_legend2 <- sp_legend2  +
+  theme(legend.position='none')
+print(sp_legend2)
+```
 
 
-<!-- ## Remove a specific legend -->
-<!-- ```{r legend_rm2, eval=TRUE,   opts.label='fig.medium'} -->
-<!-- sp_legend_c <- sp_legend +  -->
-<!--   guides(color = FALSE) -->
-<!-- print(sp_legend_c) -->
-<!-- ``` -->
+## Remove a specific legend
+```{r legend_rm2, eval=TRUE,   opts.label='fig.medium'}
+sp_legend_c <- sp_legend +
+  guides(color = FALSE)
+print(sp_legend_c)
+```
 
 
 ## Saving a plot

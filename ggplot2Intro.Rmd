@@ -195,18 +195,18 @@ print(sp_shape_imp3)
 ```{r sp_discrete_color1, eval=TRUE,   opts.label='fig.medium'}
 sp_c <- ggplot(df_data, aes(x=Depth, y=Biomass,
                             color=Year_fac)) +
-  geom_point(alpha=0.8, ) + xlab('Average net depth (m)')
+  geom_point() + xlab('Average net depth (m)')
 print(sp_c)
 ```
 
 
-## Discrete color scale : *scale_colour_hue*
-```{r sp_discrete_color_hue1, eval=TRUE,   opts.label='fig.medium'}
-# Adjust luminosity and chroma
-sp_c_hue <- sp_c +
-  scale_colour_hue(name='Year', l=70, c=150)
-print(sp_c_hue)
-```
+<!-- ## Discrete color scale : *scale_colour_hue* -->
+<!-- ```{r sp_discrete_color_hue1, eval=TRUE,   opts.label='fig.medium'} -->
+<!-- # Adjust luminosity and chroma -->
+<!-- sp_c_hue <- sp_c + -->
+<!--   scale_colour_hue(name='Year', l=70, c=150) -->
+<!-- print(sp_c_hue) -->
+<!-- ``` -->
 
 
 <!-- ## Discrete color scale: *scale_colour_hue* -->
@@ -218,13 +218,13 @@ print(sp_c_hue)
 <!-- ``` -->
 
 
-## Discrete color scale : *scale_colour_hue*
-```{r sp_discrete_color_hue2b, eval=TRUE,   opts.label='fig.medium'}
-# Adjust luminosity and chroma
-sp_c_hue <- sp_c +
-  scale_colour_hue(name='Year', l=70, c=50)
-print(sp_c_hue)
-```
+<!-- ## Discrete color scale : *scale_colour_hue* -->
+<!-- ```{r sp_discrete_color_hue2b, eval=TRUE,   opts.label='fig.medium'} -->
+<!-- # Adjust luminosity and chroma -->
+<!-- sp_c_hue <- sp_c + -->
+<!--   scale_colour_hue(name='Year', l=70, c=50) -->
+<!-- print(sp_c_hue) -->
+<!-- ``` -->
 
 
 <!-- ## Discrete color scale: *scale_colour_hue* -->
@@ -277,12 +277,12 @@ print(sp_c_grey)
 
 
 
-## Discrete color scale : *scale_color_grey*
-```{r sp_discrete_color6, eval=TRUE,   opts.label='fig.medium'}
-sp_c_grey <- sp_c +
-  scale_color_grey(name='Year', start=0.8, end=0.2)
-print(sp_c_grey)
-```
+<!-- ## Discrete color scale : *scale_color_grey* -->
+<!-- ```{r sp_discrete_color6, eval=TRUE,   opts.label='fig.medium'} -->
+<!-- sp_c_grey <- sp_c + -->
+<!--   scale_color_grey(name='Year', start=0.8, end=0.2) -->
+<!-- print(sp_c_grey) -->
+<!-- ``` -->
 
 
 <!-- ## Discrete color scale: manual -->
@@ -564,31 +564,31 @@ print(boxplot_TS_AREA)
 
 
 
-## Boxplot (and all other plots): changing label in the legend
-The easiest way to change the label in the legend (i.e. 5AB and 5CD) rename the factor levels before the plot:
+<!-- ## Boxplot (and all other plots): changing label in the legend -->
+<!-- The easiest way to change the label in the legend (i.e. 5AB and 5CD) rename the factor levels before the plot: -->
 
-```{r renaming_factor, eval=TRUE,   opts.label='fig.medium'}
-df_data$AREA <- factor(df_data$AREA, levels=c("5AB", "5CD"),
-                       labels=c("Northern area", "Southern area"))
-```
+<!-- ```{r renaming_factor, eval=TRUE,   opts.label='fig.medium'} -->
+<!-- df_data$AREA <- factor(df_data$AREA, levels=c("5AB", "5CD"), -->
+<!--                        labels=c("Northern area", "Southern area")) -->
+<!-- ``` -->
 
-This code can also be useful for reordering the factor levels before the plot:
-```{r reordering_factor, eval=FALSE,   opts.label='fig.medium'}
-df_data$AREA <- factor(df_data$AREA, levels=c("5CD", "5AB"),
-                       labels=c("Southern area", "Northern area"))
-```
+<!-- This code can also be useful for reordering the factor levels before the plot: -->
+<!-- ```{r reordering_factor, eval=FALSE,   opts.label='fig.medium'} -->
+<!-- df_data$AREA <- factor(df_data$AREA, levels=c("5CD", "5AB"), -->
+<!--                        labels=c("Southern area", "Northern area")) -->
+<!-- ``` -->
 
 
-## Boxplot with changed factor label
-```{r boxplot_TSf_AREA_final, eval=TRUE,   opts.label='fig.small'}
-bplot_TS <- ggplot(df_data, aes(x=factor(Year), y=Biomass, colour=AREA)) +
-  geom_boxplot()
-print(bplot_TS)
-```
-```{r renaming_factor_back, eval=TRUE, echo=FALSE, tidy=FALSE}
-df_data$AREA <- factor(df_data$AREA, labels=c("5AB", "5CD"),
-                       levels=c("Northern area", "Southern area"))
-```
+<!-- ## Boxplot with changed factor label -->
+<!-- ```{r boxplot_TSf_AREA_final, eval=TRUE,   opts.label='fig.small'} -->
+<!-- bplot_TS <- ggplot(df_data, aes(x=factor(Year), y=Biomass, colour=AREA)) + -->
+<!--   geom_boxplot() -->
+<!-- print(bplot_TS) -->
+<!-- ``` -->
+<!-- ```{r renaming_factor_back, eval=TRUE, echo=FALSE, tidy=FALSE} -->
+<!-- df_data$AREA <- factor(df_data$AREA, labels=c("5AB", "5CD"), -->
+<!--                        levels=c("Northern area", "Southern area")) -->
+<!-- ``` -->
 
 
 ## Faceting: *facet_grid*
@@ -604,8 +604,7 @@ print(hist)
 fw1 <- ggplot(data=df_data, aes(x=Duration)) +
   geom_histogram(binwidth=1) + 
   xlab('Duration of a tow (in minutes)') + ylab('Number of tows') +
-  facet_grid(~ AREA) 
-
+  facet_grid(~ AREA)
 print(fw1)
 ```
 
@@ -803,11 +802,11 @@ p + theme(plot.background = element_rect(fill = "darkblue"))
 ```
 
 
-## Theme: background change
-```{r theme_1, eval=TRUE,   opts.label='fig.medium'}
-print(fw2 + 
-        theme(plot.background = element_rect(fill = "darkblue")))
-```
+<!-- ## Theme: background change -->
+<!-- ```{r theme_1, eval=TRUE,   opts.label='fig.medium'} -->
+<!-- print(fw2 +  -->
+<!--         theme(plot.background = element_rect(fill = "darkblue"))) -->
+<!-- ``` -->
 
 
 ## Theme: black and white
@@ -921,11 +920,9 @@ print(fw2 + theme_classic())
 ## Saving a plot
 The ggsave function from ggplot2 package allows to automatically save a plot.
 ```{r ggsave1, eval=FALSE,   opts.label='fig.medium'}
-sp_legend_c <- sp_legend + 
-  guides(color = FALSE)
-print(sp_legend_c)
+print(fw2)
 
-ggsave(plot=sp_legend_c, filename = 'sp_legend_c.pdf', path = '~/figure',
+ggsave(plot=fw2, filename = 'fw2.pdf', path = '~/figure',
        width = 8, height = 5, units = 'cm')
 ```
 

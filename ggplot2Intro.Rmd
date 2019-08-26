@@ -408,7 +408,7 @@ print(TSplot_year)
 ## Time series: summarize
 Summarize the data with the mean, median and quantiles for easy plotting.
 The ddply function from the plyr R package provides an easy way to summarize the data.
-```{r summary_data_year, eval=FALSE,   opts.label='fig.medium'}
+```{r summary_data_year, eval=TRUE,   opts.label='fig.medium'}
 df_summary <- df_data %>% group_by(Year) %>% summarise(
   B_mean=mean(Biomass),
   B_median=median(Biomass),

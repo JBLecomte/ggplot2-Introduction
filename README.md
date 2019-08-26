@@ -7,7 +7,7 @@ Introduction to ggplot2 by examples. The different types of plots are called by 
 Directories
 --
 
-**Main.R** is the master R file which controls the analysis.
+**ggplot2Intro.Rmd** is the master R file which controls the analysis.
 
 **Data/**   - datasets organize in subdirectories.
 
@@ -20,7 +20,7 @@ Directories
 
 Contact info
 --
-Jean-Baptiste Lecomte <jeanbaptiste.lecomte@dfo-mpo.gc.ca>
+Jean-Baptiste Lecomte <jlecomte@agrocampus-ouest.fr>
 
 
 

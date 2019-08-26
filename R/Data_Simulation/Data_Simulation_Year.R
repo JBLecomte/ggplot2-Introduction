@@ -13,14 +13,8 @@ if(file.exists('Data/df_data_survey.RData')){
   
   ## Create a numeruc variable for the AREA
   df_data$AREA_num <- as.numeric(df_data$AREA)
-  
-  ## Number of years 
-  nYear <- length(levels(df_data$Year_fac))
-  
-  ## number of observation per year
-  nObs_t <- table(df_data$YeaB_fac)
-  
-  ## Simulation of a number of fish with a depth effect, Temperature, and Area
+
+    ## Simulation of a number of fish with a depth effect, Temperature, and Area
   Depth_effect <- - 0.7
   Temperature_effect <- 0.5
   AREA_effect <- c(0, 2)
@@ -69,3 +63,10 @@ if(file.exists('Data/df_data_survey.RData')){
   
   save(df_data, file = 'Data/df_data_survey.RData')
 }
+
+
+## Number of years 
+nYear <- length(levels(df_data$Year_fac))
+
+## number of observation per year
+nObs_t <- table(df_data$YeaB_fac)
